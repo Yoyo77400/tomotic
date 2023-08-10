@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="w-75 m-auto">
+        <h1>Créez votre compte Client</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.nom) }}
+                    {{ form_widget(registrationForm.nom) }}
+                </div>
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.prenom) }}
+                    {{ form_widget(registrationForm.prenom) }}
+                </div>
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.email, "Votre Email", {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(registrationForm.email) }}
+                </div>
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.telephone) }}
+                    {{ form_widget(registrationForm.telephone) }}
+                </div>
+                <div class='w-75 px-2 my-2'>
+                    {{ form_label(registrationForm.dateDeNaissance, "", {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(registrationForm.dateDeNaissance) }}
+                </div>
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.plainPassword.first, "", {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.first) }}
+                </div>
+                <div class='w-50 px-2 my-2'>
+                    {{ form_label(registrationForm.plainPassword.second, "", {'label_attr': {'class': 'w-100'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.second) }}
+                </div>
+                <div class='d-flex w-100 px-2 my-2 fw-bolder'>
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                    {{ form_label(registrationForm.agreeTerms) }}
+                </div>
+            </div>
+            <div class='d-flex flex-column mt-2 w-50 m-auto'>
+                <p class="my-2 fw-bolder"><span class='red-star'>*</span>Ces informations sont obligatoires.</p>
+                <button type="submit" class="btn btn-green-tomotic my-2">S'inscrire</button>
+            </div>
+            
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

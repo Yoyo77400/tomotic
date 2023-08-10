@@ -1,0 +1,46 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}SousCategorie index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>SousCategorie index</h1>
+        <a href="{{ path('app_admin_sous_categorie_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table table-index table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Image</th>
+                <th>Modifiée</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sous_categorie in sous_categories %}
+            <tr>
+                <td>{{ sous_categorie.id }}</td>
+                <td>{{ sous_categorie.nom }}</td>
+                <td>
+                    <a href="{{ asset('images/sous_categorie/' ~ sous_categorie.imageName) }}" data-lightbox="{{ sous_categorie.imageName }}" {% if sous_categorie.nom is not null %} data-title="{{ sous_categorie.nom }}"{% endif %}>
+						<img src="{{ asset('images/sous_categorie/' ~ sous_categorie.imageName) }}" alt="" class="img-list">
+					</a>
+                </td>
+                <td>{{ sous_categorie.updatedAt ? sous_categorie.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sous_categorie.isActive ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_sous_categorie_show', {'id': sous_categorie.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_sous_categorie_edit', {'id': sous_categorie.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_sous_categorie/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-start">Pas d'entrée trouvée en base de données!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

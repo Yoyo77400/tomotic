@@ -1,0 +1,12 @@
+<h1>Bienvenue sur le site TOMITIC</h1>
+
+<p>
+    Pour confirmer votre Email merci de cliquez sur le lien suivant: <br><br>
+    <a href="{{ signedUrl|raw }}" class='btn btn-success'>Comfirmer mon Email</a>.
+    Ce lien expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+    A bientôt sur notre site!
+    L'équipe TOMOTIC vous remercie de votre inscription.
+</p>

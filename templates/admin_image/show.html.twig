@@ -1,0 +1,37 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Image{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_image_index') }}" class="btn btn-dark btn-sm mm-3">Retour à la liste</a>
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>Détail de l'image</h1>
+        {{ include('admin_image/_delete_form.html.twig') }}
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ image.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('images/images/' ~ image.imageName)}}" alt="" class="w-25"></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ image.description }}</td>
+            </tr>
+            <tr>
+                <th>Modifié</th>
+                <td>{{ image.updatedAt ? image.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Rang</th>
+                <td>{{ image.rankOrder }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_image_edit', {'id': image.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+{% endblock %}

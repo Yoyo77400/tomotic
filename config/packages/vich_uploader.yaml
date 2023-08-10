@@ -1,0 +1,31 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        type: attribute
+
+    mappings:
+        home:
+            uri_prefix: /images/home
+            upload_destination: '%kernel.project_dir%/public/images/home'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        carousel:
+            uri_prefix: /images/carousel
+            upload_destination: '%kernel.project_dir%/public/images/carousel'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        categorie:
+            uri_prefix: /images/categorie
+            upload_destination: '%kernel.project_dir%/public/images/categorie'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        sousCategorie:
+            uri_prefix: /images/sous_categorie
+            upload_destination: '%kernel.project_dir%/public/images/sous_categorie'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        footer:
+            uri_prefix: /images/footer
+            upload_destination: '%kernel.project_dir%/public/images/footer'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        images:
+            uri_prefix: /images/images
+            upload_destination: '%kernel.project_dir%/public/images/images'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

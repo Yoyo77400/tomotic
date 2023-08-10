@@ -1,0 +1,46 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Image index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>Image index</h1>
+        <a href="{{ path('app_admin_image_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table table-index table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Modifiée</th>
+                <th>Rang</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for image in images %}
+            <tr>
+                <td>{{ image.id }}</td>
+                <td>
+                    <a href="{{ asset('images/images/' ~ image.imageName) }}" data-lightbox="{{ image.imageName }}">
+						<img src="{{ asset('images/images/' ~ image.imageName) }}" alt="" class="img-list">
+					</a>
+                </td>
+                <td>{{ image.description }}</td>
+                <td>{{ image.updatedAt ? image.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ image.rankOrder }}</td>
+                <td>
+                    <a href="{{ path('app_admin_image_show', {'id': image.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_image_edit', {'id': image.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_image/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-start">Pas d'entrée trouvée en base de données!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

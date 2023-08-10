@@ -1,0 +1,11 @@
+<ul class="dropdown-menu drop-special-width">
+    <li><a class="dropdown-item fw-bolder" href="{{ path('app_front_categorie', {slug: 'categories'})}}">Tous nos produits</a></li>
+    {% for categorie in categories %}
+    <li class="mt-2">
+        <a class="dropdown-item fw-bolder" href="{{ path('app_front_categorie', {slug: categorie.slug}) }}">{{ categorie.nom }}</a>
+        {% for sousCategorie in categorie.sousCategories %}
+        <a class="dropdown-item mt-1 " href="{{ path('app_front_sous_categorie', {slug: sousCategorie.slug}) }}">{{ sousCategorie.nom }}</a>
+        {% endfor %}
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,53 @@
+{{ form_start(form) }}
+{{ form_row(form.isActive) }}
+{{ form_row(form.nom) }}
+{{ form_row(form.description) }}
+{{ form_row(form.prix) }}
+{{ form_row(form.discount) }}
+{{ form_row(form.sousCategorie) }}
+
+{# On créer une macro pour prendre en charge l'apparence du rendu du formulaire des images #}
+{% macro renderImageForm(form, imageName = null) %}
+	{# {{ dump(form.vars.form.children) }} #}
+	<div class="d-flex flex-wrap bg-form-image p-3 my-3 align-items-center img-form-container position-relative">
+		<div class="col-12 col-md-2">
+			{# On affichera l'image #}
+			{# On vérifie si l'imagename n'est pas nul #}
+				{% if imageName is not null %}
+					<a href="{{ asset('images/images/' ~ imageName) }}" data-lightbox="{{ imageName }}" class="d-block me-3"> <img src="{{ asset('images/images/' ~ imageName) }}" class="img-fluid img-form-livre">
+				</a>
+			{% endif %}
+		</div>
+		<div class="col-12 col-md-10">
+			<div class="d-flex align-items-center mb-2">
+				<div class="col-6 col-md-5 mx-1">
+					{{ form_label(form.vars.form.children["imageFile"]) }}
+					{{ form_widget(form.vars.form.children["imageFile"]) }}
+				</div>
+				<div class="col-6 col-md-5 mx-1">
+					{{ form_label(form.vars.form.children["rankOrder"]) }}
+					{{ form_widget(form.vars.form.children["rankOrder"]) }}
+				</div>
+			</div>
+			{{ form_label(form.vars.form.children["description"]) }}
+			{{ form_widget(form.vars.form.children["description"]) }}
+		</div>
+	</div>
+{%  endmacro %}
+
+{% import _self as macros %}
+
+<ul
+	class="items list-unstyled" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}" data-prototype="{{ macros.renderImageForm(form.images.vars.prototype)|e('html_attr') }}">
+	{# on affiche les formulaires d'images pour les images déjà ajoutées au livre #}
+	{% for image in form.images %}
+		{# {{ dump(image.vars["data"].imageName) }} #}
+		<li>{{ macros.renderImageForm(image, image.vars["data"].imageName) }}</li>
+	{% endfor %}
+</ul>
+<div>
+	<button type="button" class="add_item_link btn btn-success mb-3" data-collection-holder-class="items">Ajouter une Image</button>
+</div>
+
+<button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

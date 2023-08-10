@@ -1,0 +1,51 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}FooterContent index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>FooterContent index</h1>
+        <a href="{{ path('app_admin_footer_content_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table table-index table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Image</th>
+                <th>Url</th>
+                <th>Modifié</th>
+                <th>Actif</th>
+                <th>Tag</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for footer_content in footer_contents %}
+            <tr>
+                <td>{{ footer_content.id }}</td>
+                <td>{{ footer_content.titre }}</td>
+                <td>
+                    <a href="{{ asset('images/footer/' ~ footer_content.imageName) }}" data-lightbox="{{ footer_content.imageName }}" {% if footer_content.titre is not null %} data-title="{{ footer_content.titre }}"{% endif %}>
+						<img src="{{ asset('images/footer/' ~ footer_content.imageName) }}" alt="" class="img-list">
+					</a>
+                </td>
+                <td>{{ footer_content.url }}</td>
+                <td>{{ footer_content.updatedAt ? footer_content.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ footer_content.isActive ? 'Yes' : 'No' }}</td>
+                <td>{{ footer_content.tag }}</td>
+                <td>
+                    <a href="{{ path('app_admin_footer_content_show', {'id': footer_content.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_footer_content_edit', {'id': footer_content.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_footer_content/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-start">Pas d'entrée trouvé en base de données!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

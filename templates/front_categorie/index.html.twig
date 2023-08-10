@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontCategorieController!{% endblock %}
+
+{% block body %}
+<div class="row">
+    {{ render(controller('App\\Controller\\FrontCategorieController::renderCategorieMenu'))}}
+</div>
+{# on affiche le menu à gauche avec les catéorie disponibles, et dans la pages pour chaque catégorie nous créérons une div avec des card de produits. Nous ajouterons un bouton de recherche dans ce metin #}
+
+
+{% endblock %}

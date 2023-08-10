@@ -1,0 +1,44 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}FooterContent{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_footer_content_index') }}" class="btn btn-dark btn-sm mb-3">Retour à la liste</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>FooterContent</h1>
+        {{ include('admin_footer_content/_delete_form.html.twig') }}
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ footer_content.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ footer_content.titre }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ footer_content.url }}</td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ footer_content.imageName }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ footer_content.updatedAt ? footer_content.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ footer_content.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Tag</th>
+                <td>{{ footer_content.tag }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_footer_content_edit', {'id': footer_content.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}New ContactContent{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_contact_content_index') }}" class="btn btn-dark btn-sm mb-3">Retour à la liste</a>
+    <h1>Créer de nouvelles informations de contact</h1>
+    {{ include('admin_contact_content/_form.html.twig') }}
+{% endblock %}

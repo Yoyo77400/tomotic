@@ -1,0 +1,9 @@
+{% for partenaire in partenaires %}
+    <a href="{{ partenaire.url }}" target="_blank">
+    {% if partenaire.imageName is not null %}
+    <img src="{{ asset('images/footer/' ~ partenaire.imageName)}}" alt="{{ partenaire.titre }}" class="img-reseau img-fluid">
+    {% else %}
+    {{ partenaire.titre }}
+    {% endif %}
+    </a>
+{% endfor %}

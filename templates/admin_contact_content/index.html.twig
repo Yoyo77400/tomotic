@@ -1,0 +1,46 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}ContactContent index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>ContactContent index</h1>
+        <a href="{{ path('app_admin_contact_content_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table table-index table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Adresse</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact_content in contact_contents %}
+            <tr>
+                <td>{{ contact_content.id }}</td>
+                <td>{{ contact_content.titre }}</td>
+                <td>{{ contact_content.adresse }}</td>
+                <td>{{ contact_content.email }}</td>
+                <td>{{ contact_content.telephone }}</td>
+                <td>{{ contact_content.isActive ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_contact_content_show', {'id': contact_content.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_contact_content_edit', {'id': contact_content.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_contact_content/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-start">Pas d'entrée trouvée en base de données!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

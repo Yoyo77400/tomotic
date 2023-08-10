@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ home.titre}}{% endblock %}
+
+{% block body %}
+	<section>
+		{% if carousels | length > 0  %}
+			<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+				<div class="carousel-indicators">
+					{% for carousel in carousels %}
+						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="active" aria-current="true" {% endif %} aria-label="{{ loop.index }}"></button>
+					{% endfor %}
+				</div>
+				<div class="carousel-inner">
+					{% for carousel in carousels %}
+						<div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+							<img src="{{ asset('images/carousel/' ~ carousel.imageName) }}" class="d-block w-100 carousel-max-h" alt="">
+							<div class="carousel-caption d-none d-md-block">
+								{% if carousel.titre is not null %}
+									<h5>{{ carousel.titre }}</h5>
+								{% endif %}
+								{% if carousel.description is not null %}
+									<p>{{ carousel.description }}</p>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Précédent</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Suivant</span>
+				</button>
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

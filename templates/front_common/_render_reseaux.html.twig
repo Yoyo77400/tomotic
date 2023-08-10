@@ -1,0 +1,9 @@
+{% for reseau in reseaux %}
+    <a href="{{ reseau.url }}" target="_blank" class="text-unstyled">
+    {% if reseau.imageName is not null %}
+    <img src="{{ asset('images/footer/' ~ reseau.imageName)}}" alt="{{ reseau.titre }}" class="img-reseau img-fluid">
+    {% else %}
+    {{ reseau.titre }}
+    {% endif %}
+    </a>
+{% endfor %}

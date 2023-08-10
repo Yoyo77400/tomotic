@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_admin_contenu_delete', {'id': contenu.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer ce contenu?');" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contenu.id) }}">
+    <button class="btn btn-danger my-2"><i class="align-middle" data-feather="trash"></i></button>
+</form>

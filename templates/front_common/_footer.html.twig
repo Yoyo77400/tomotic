@@ -1,0 +1,18 @@
+{# 
+    Notre footer sera comme sur la maquette scindé en 3 parties. 
+        -Les informations tels que les contact de l'entreprises ou les CGV. 
+        -La liste des partenaires
+        -La liste des réseau sociaux
+    Ces deux dernières seront affiché via les logos d'entreprises, redimentionné afin d'uniformiser les tailles d'image dans chaque section. 
+#}
+<footer class='row px-3 align-items-center'>
+        <div class="col-12 col-md-4 text-center">
+            {{ render(controller('App\\Controller\\HomeController::renderContact')) }}
+        </div>
+        <div class="col-12 col-md-4">
+            {{ render(controller('App\\Controller\\HomeController::renderPartenaires')) }}
+        </div>
+        <div class="col-12 col-md-4 text-center">
+            {{ render(controller('App\\Controller\\HomeController::renderReseaux')) }}
+        </div>
+</footer>

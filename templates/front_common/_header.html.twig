@@ -1,0 +1,48 @@
+{# 
+    -Créer un Header qui comprendra l'affichage de l'icone de la page home correspondant au logo du site. 
+    -Créer dans ce header une nav. Cette nav comprendra des menus dropdowns pour les solutions proposée dans notre site. Ainsi qu'un menu dropdwn pour les produits, laissant l'accés aux catégories de produits ainsi qu'un bouton pour la liste des catégories du site. 
+    -Nous aurons également la possibilité de nous connecter à un compte client ou de nous inscrire. Ces bouton seront remplacé par un icone user lorsque l'utilisateurs sera connécté. 
+#}
+
+{# Créer un script pour styliser la barre de navigation quand elle passe en menu burger. #}
+
+<header>
+	<nav class='navbar navbar-expand-xl'>
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{{ path('app_home') }}">{{ render(controller('App\\Controller\\HomeController::renderLogo'))}}</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<ul class="navbar-nav w-100">
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<li class="nav-item mx-5">
+						<a href="{{ path('app_home') }}">Accueil</a>
+					</li>
+					<li class="nav-item mx-5">
+						<a href="#">Solutions pour particuliers</a>
+					</li>
+					<li class="nav-item mx-5">
+						<a href="#">Solutions pour professionnels</a>
+					</li>
+					<li class="nav-item dropdown ms-5">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos produits</a>
+						{{ render(controller('App\\Controller\\FrontCategorieController::renderCategorieDropdown'))}}
+					</li>
+					<li class="nav-item ms-auto me-5">
+						<a href="#">
+							<i class="fa-solid fa-cart-shopping fa-xl"></i>
+						</a>
+					</li>
+					<div class='mx-5'>
+						<li class="my-2 nav-item">
+							<a href="{{ path('app_login')}}">Connexion</a>
+						</li>
+						<li class="my-2 nav-item">
+							<a href="{{ path('app_register') }}">Inscription</a>
+						</li>
+					</div>
+				</div>
+			</ul>
+		</div>
+	</nav>
+</header>

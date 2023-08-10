@@ -1,0 +1,15 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Nouveau Produit
+{% endblock %}
+
+{% block body %}
+	<a href="{{ path('app_admin_produit_index') }}" class="btn btn-dark btn-sm mb-3">Retour à la liste</a>
+	<h1>Créer un produit</h1>
+	{{ include('admin_produit/_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/image-upload.js')}}"></script>
+	<script src="{{ asset('js/add-image-link.js')}}"></script>
+{% endblock %}

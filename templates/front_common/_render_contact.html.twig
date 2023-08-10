@@ -1,0 +1,10 @@
+<p class="m-0 fw-bolder">{{ contacts[0].titre }}</p>
+{% if contacts[0].adresse is not null %}
+<p class="m-0">{{ contacts[0].adresse }}</p>
+{% endif %}
+{% if contacts[0].email is not null %}
+<p class="m-0">{{ contacts[0].email }}</p>
+{% endif %}
+{% if contacts[0].telephone is not null %}
+<p class="m-0">{{ contacts[0].telephone }}</p>
+{% endif %}

@@ -1,0 +1,12 @@
+<div class="col-12 col-lg-2 my-4 ps-3">
+	<ul class="list-group list-group-flush  border border-2 rounded border-secondary">
+        {% for categorie in categories %}
+		<li class="list-group-item d-flex align-items-center justify-content-center">
+            <img src="{{ asset('images/categorie/' ~ categorie.imageName) }}" alt="{{ categorie.nom }}">
+            <p class="m-2">{{ categorie.nom }}</p>
+        </li>
+        {% endfor %}
+	</ul>
+</div>
+
+{# Création d'un script a prévoir pour styliser proprement le menu a partir de certaines tailles d'écran #}

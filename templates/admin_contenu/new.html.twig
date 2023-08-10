@@ -1,0 +1,10 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}New Contenu{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_contenu_index') }}" class="btn btn-dark btn-sm">Retour à la liste</a>
+    <h1>Créer un nouveau contenu</h1>
+
+    {{ include('admin_contenu/_form.html.twig') }}
+{% endblock %}

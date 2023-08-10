@@ -1,0 +1,39 @@
+body{
+    .table-index{
+        tr{
+            th{
+                &:last-child{
+                    text-align: right;
+                }
+            }
+            td{
+                &:last-child{
+                    text-align: right;
+                }
+                .img-list{
+                    // width: 100%;
+                    max-width: 200px;
+                }
+                img{
+                    max-width: 200px;
+                }
+            }
+        }
+    }
+    label{
+        &.required{
+            &:after{
+                content: "*";
+                color: red;
+            }
+        }
+    }
+    .bg-form-image{
+        background: #dbdbdb;
+        .bt-trash{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}

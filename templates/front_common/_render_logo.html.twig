@@ -1,0 +1,5 @@
+{% set logoName = 'tomotic.png' %}
+{% if logo.imageName is not null %}
+{% set logoName = logo.imageName %}
+{% endif %}
+<img src="{{ asset('images/home/' ~ logoName) }}" alt="{{ logo.titre }}" class='logo img-fluid'>

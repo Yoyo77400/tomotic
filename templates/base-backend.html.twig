@@ -9,6 +9,7 @@
 {% set imageActive = "" %}
 {% set produitActive = "" %}
 {% set sousCategorieActive = "" %}
+{% set userActive = "" %}
 {# On vérifie si un mot est contenu dans la route (barre d'adresse) et si c'est le cas on modifie la valeur de la variable concernée #}
 {% if "dashboard" in app.request.pathinfo %}
 	{% set dashboardActive = "active" %}
@@ -32,6 +33,8 @@
 	{% set imageActive = "active" %}
 {% elseif "produit" in app.request.pathinfo %}
 	{% set produitActive = "active" %}
+{% elseif "user" in app.request.pathinfo %}
+	{% set userActive = "active" %}
 {% else %}
 	{% set dashboardActive = "active" %}
 {% endif %}

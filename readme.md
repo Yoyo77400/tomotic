@@ -24,17 +24,34 @@
 
 ## Maj du 10/08/23 ##
 
--A venir
+-Création de la page des sous-catégories.
+-Installation du bundle knp pagination.
+-Ajout d'un système de pagination dans ces pages pour la gestions des sous-catégories contenant beaucoup de produits.
+-Mise à jours du template de pagination dans le template de sliding.html.twig de knp paginator.
+-Mise en place de la redirection vers le site dans la lft nav du dashboard.
+-Ajout des images dans les détails des produits sur la partie administration.
+-Ajout de la première image dans l'index de la page produit en dashboard.
+-Mise en place des routes dynamiques avec slug pour les pages produits.
+-Création d'un controller front pour nos utilisateurs.
+-Création d'un template front pour nos utilisateurs. Reste à customiser le template.
+
+## Maj du 12/08/23 ##
+
+-Création de la page des produits avec mise en forme.
+-Adaptation automatique du format du prix dans le code.
+-Création du crud Utilisateur.
+-Ajustements des templates admin de la gestion des utilisateurs.
+-Formatage du formulaire UserType.
+-Ajout de l'accès à la gestion des utilisateurs dans la left nav du dashboard
 
 ### A prévoir ###
 
 -Réalisation de la page produit.
 -Mise en place de la page toutes les catégories.
--Lien de rediréction vers le site dans le dashboard.
 -Mise en place du fil d'ariane dans le site.
--Finition de la page d'accuueil.
+-Finition de la page d'accueil.
 -Création de fixtures et des rôles utilisateurs.
 -Sécurisation des données utilisateurs.
--Gestion des entité panier, articles, et commande pour la réalisation du tunnel d'achat.
+-Gestion des entités panier, articles, et commande pour la réalisation du tunnel d'achat.
 -Création des entités liées aux solutions sur mesures.
 -Documentation fullcalendar pour la mise en place des rendez-vous.

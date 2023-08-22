@@ -9,7 +9,7 @@
         {{ include('admin_produit/_delete_form.html.twig') }}
     </div>
 
-    <table class="table">
+    <table class="table table-index">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -38,6 +38,18 @@
             <tr>
                 <th>Slug</th>
                 <td>{{ produit.slug }}</td>
+            </tr>
+            <tr>
+                <th>Images</th>
+                <td>
+                    <div class="d-flex flex-wrap">
+                        {% for image in produit.images %}
+                            <a href="{{ asset('images/images/' ~ image.imageName) }}" data-lightbox="{{ image.imageName }}">
+                                <img src="{{ asset('images/images/' ~ image.imageName) }}" alt="" class="img-list">
+                            </a>
+                        {% endfor %}
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

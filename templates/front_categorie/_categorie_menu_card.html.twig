@@ -1,9 +1,11 @@
 <div class="col-12 col-lg-2 my-4 ps-3">
 	<ul class="list-group list-group-flush  border border-2 rounded border-secondary">
         {% for categorie in categories %}
-		<li class="list-group-item d-flex align-items-center justify-content-center">
-            <img src="{{ asset('images/categorie/' ~ categorie.imageName) }}" alt="{{ categorie.nom }}">
-            <p class="m-2">{{ categorie.nom }}</p>
+		<li class="list-group-item">
+            <a href="{{ path('app_front_categorie', {slug: categorie.slug}) }}" class="d-flex align-items-center justify-content-center">
+                <img src="{{ asset('images/categorie/' ~ categorie.imageName) }}" alt="{{ categorie.nom }}">
+                <p class="m-2">{{ categorie.nom }}</p>
+            </a>
         </li>
         {% endfor %}
 	</ul>

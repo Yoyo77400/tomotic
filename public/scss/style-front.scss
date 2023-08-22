@@ -4,6 +4,15 @@ body{
     .row{
         max-width: 100%;
     }
+
+    .nav-pills {
+        min-width: 250px;
+        .nav-link.active {
+        background-color: #186903;
+        color: white;
+        }
+    }
+    
     a{
         &.nav-link{
         color: $color;
@@ -64,12 +73,31 @@ body{
     }
     .card-product{
         max-width: 250px;
+        min-width: 150px;
+        box-shadow: -3px 3px 5px rgba(0, 0, 0, .5);
+        transition: 1.5s;
+        &:hover{
+            transform: scale(1.05);
+        }
     }
     .discount{
-        background-color: rgba($color: $color, $alpha: 0.7);
-        border-radius: 5px;
+        background-color: #D1E3B1;
+        border-radius: 10px;
+        padding: 3px;
+        color: $color;
+        font-weight: bold;
+        text-align: center;
     }
     .carousel-max-h{
         max-height: calc(100vh - 280px);
+    }
+    .img-produit{
+        min-width: 200px;
+    }
+    .img-min{
+        width: 30%;
+    }
+    .cursor-pointer{
+        cursor: pointer;
     }
 }

@@ -7,7 +7,15 @@
 		</a>
 		<ul class="sidebar-nav">
 			<li class="sidebar-header">
-				Pages
+				Administration
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('app_home') }}">
+					<i class="align-middle" data-feather="sliders"></i>
+					<span class="align-middle">
+						Voir le site TOMOTIC
+					</span>
+				</a>
 			</li>
 			<li class="sidebar-item {{ dashboardActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_dashboard') }}">
@@ -16,6 +24,9 @@
 						Dashboard
 					</span>
 				</a>
+			</li>
+			<li class="sidebar-header">
+				Pages
 			</li>
 			<li class="sidebar-item {{ homeActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_home_index') }}">
@@ -35,6 +46,14 @@
 			</li>
 			<li class="sidebar-header">
 				Composants
+			</li>
+			<li class="sidebar-item {{ userActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_user_index') }}">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">
+						Utilisateurs
+					</span>
+				</a>
 			</li>
 			<li class="sidebar-item {{ contactActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_contact_content_index') }}">

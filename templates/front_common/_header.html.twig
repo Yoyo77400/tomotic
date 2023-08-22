@@ -33,14 +33,27 @@
 							<i class="fa-solid fa-cart-shopping fa-xl"></i>
 						</a>
 					</li>
-					<div class='mx-5'>
-						<li class="my-2 nav-item">
+					{% if app.user is null %}
+					<li class='mx-5'>
+						<div class="my-2 nav-item">
 							<a href="{{ path('app_login')}}">Connexion</a>
-						</li>
-						<li class="my-2 nav-item">
+						</div>
+						<div class="my-2 nav-item">
 							<a href="{{ path('app_register') }}">Inscription</a>
+						</div>
+					</li>
+					{% else %}
+						<li class="nav-item me-5 dropstart">
+							<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user-circle fa-2xl"></i></a>
+							<ul class="dropdown-menu mt-4">
+    							<li><a href="{{ path('app_front_user') }}" class="dropdown-item">Mon compte</a></li>
+								{% if is_granted("ROLE_ADMIN") %}
+									<li><a href="{{ path('app_admin_dashboard') }}" class="dropdown-item" target="_blank">Panneau d'administration</a></li>
+								{% endif %}
+								<li><a href="{{ path('app_logout') }}" class="dropdown-item">Déconnexion</a></li>
+							</ul>
 						</li>
-					</div>
+					{% endif %}
 				</div>
 			</ul>
 		</div>

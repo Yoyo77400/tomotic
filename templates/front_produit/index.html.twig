@@ -1,7 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello{% endblock %}
+{% block title %}{{ produit.nom }}{% endblock %}
 
 {% block body %}
-{# page d'un produit #}
+    <div class="row justify-content-around">
+        <div class="col-12 col-lg-2 text-center">
+            {% if produit.images|length > 0 %}
+                <a href="{{ asset('images/images/' ~ produit.images[0].imageName) }}" data-lightbox="{{ produit.nom }}">
+                    <img src="{{ asset('images/images/' ~ produit.images[0].imageName) }}" alt="{{ produit.nom }}" class="img-fluid" id="img-big">
+                </a>
+                {% if produit.images|length > 1 %}
+                    <div class="row justify-content-between">
+                        {% for image in produit.images %}
+                            {% if loop.index0 > 0  %}
+                                <div class="img-min mt-3 cursor-pointer">
+                                    <img src="{{ asset('images/images/' ~ produit.images[loop.index0].imageName) }}" alt="" class="img-fluid">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-12 col-lg-8 text-justify">
+            <div class="mx-auto w-75">
+                <h2 class="title-green">{{ produit.nom }}</h2>
+                {% if produit.description is not null %}
+                    <p>{{ produit.description|raw }}</p>
+                {% endif %}
+                <div class="w-25">
+                    {% if produit.discount is not null %}
+                        {% set price = produit.prix-(produit.prix*produit.discount/100) %}
+                        <div class="d-flex justify-content-between">
+                            <p class="mx-2 fw-bold h3">{{ price|format_currency('EUR') }}</p>
+                            <span class="discount mx-2 h4">-{{ produit.discount }}%</span>
+                        </div>
+                        <p class="mx-2 fw-bolder"><s>{{ produit.prix|format_currency('EUR') }}</s></p>
+                    {% else %}
+                        <p class="mx-2 fw-bold h3">{{ produit.prix|format_currency('EUR') }}</p>
+                    {% endif %}
+                </div>
+                <a href="#" class="btn btn-green-tomotic">Ajouter au panier</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('.cursor-pointer').on('click', function(e){
+            e.stopPropagation();
+            let itemSource = $(this).find('img').attr('src');
+            let currentSource = $('#img-big').attr('src');
+            $('#img-big').attr('src', itemSource);
+            $('#img-big').parent().attr('href', itemSource);
+            $(this).find('img').attr('src', currentSource);
+        })
+    </script>
 {% endblock %}

@@ -15,6 +15,7 @@ class ContactContentFixtures extends Fixture
         $contact->setAdresse('2 allée de luzancy, 77400 Pomponne');
         $contact->setEmail('toto@gmail.com');
         $contact->setTelephone('00.00.00.00.00');
+        $contact->setIsActive(true);
         $manager->persist($contact);
 
         $manager->flush();

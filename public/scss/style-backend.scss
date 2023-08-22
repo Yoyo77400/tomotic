@@ -1,3 +1,5 @@
+@import '_variable.scss';
+
 body{
     .table-index{
         tr{
@@ -13,6 +15,7 @@ body{
                 .img-list{
                     // width: 100%;
                     max-width: 200px;
+                    text-align: left;
                 }
                 img{
                     max-width: 200px;
@@ -35,5 +38,18 @@ body{
             top: 0;
             right: 0;
         }
+    }
+    .sidebar-content, .sidebar-link{
+            background-color: $greenFonce;
+    }
+
+    .sidebar-link{
+        &:hover{
+            background-color: rgba($color: white, $alpha: 0.2);
+        }
+    }
+
+    .sidebar-item.active{
+        background-color: rgba($color: white, $alpha: 0.2);
     }
 }

@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Nom</th>
-                {# <th>Description</th> #}
                 <th>Prix</th>
                 <th>Réduction</th>
                 <th>Actions</th>
@@ -22,8 +22,12 @@
         {% for produit in produits %}
             <tr>
                 <td>{{ produit.id }}</td>
+                <td>
+                    <a href="{{ asset('images/images/' ~ produit.images[0].imageName) }}" data-lightbox="{{ produit.images[0].imageName }}">
+                        <img src="{{ asset('images/images/' ~ produit.images[0].imageName) }}" alt="" class="img-list">
+                    </a>
+                </td>
                 <td>{{ produit.nom }}</td>
-                {# <td>{{ produit.description }}</td> #}
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.discount }}</td>
                 <td>
@@ -34,7 +38,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5" class="text-start">Pas d'entrée trouvée en base de données!</td>
+                <td colspan="6" class="text-start">Pas d'entrée trouvée en base de données!</td>
             </tr>
         {% endfor %}
         </tbody>

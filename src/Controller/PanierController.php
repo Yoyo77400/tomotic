@@ -12,11 +12,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class PanierController extends AbstractController
 {
     #[Route('/panier', name: 'app_panier_index')]
-    public function index(SessionInterface $sessionInterface): Response
+    public function index(SessionInterface $sessionInterface, ProduitRepository $produitRepository): Response
     {
         $panier = $sessionInterface->get("panier", []);
+        $dataPanier = []; 
+        $total = 0;
+
+        foreach($panier as $id => $quantite){
+            $produit = $produitRepository->find($id);
+            $prix = null;
+            if($produit->getDiscount()){
+                $prix = $produit->getPrix();
+            }else{
+                $prix = $produit->getPrix()-($produit->getPrix()*$produit->getDiscount()/100);
+            }
+            $dataPanier[] = [
+                "produit" => $produit,
+                "quantite" => $quantite
+            ];
+            $total = $total + $prix*$quantite;
+        }
+
         return $this->render('panier/index.html.twig', [
-            'controller_name' => 'PanierController',
+            'dataPanier' => $dataPanier,
+            "total" => $total
         ]);
     }
 
@@ -33,7 +52,7 @@ class PanierController extends AbstractController
             $panier[$id] = 1;
         }
 
-        $sessionInterface->set("panier",$panier);
+        $sessionInterface->set("panier", $panier);
         return $this->redirectToRoute("app_panier_index");
     }
 
@@ -51,21 +70,20 @@ class PanierController extends AbstractController
                 unset($panier[$id]);
             }
         }
-        $sessionInterface->set("panier",$panier);
+        $sessionInterface->set("panier", $panier);
 
         return $this->redirectToRoute("app_panier_index");
     }
 
-    #[Route('/panier/delete/{id}', name: 'app_panier_delete_produit')]
+    #[Route('/panier/delete/{id}', name: 'app_panier_delete')]
     public function delete(Produit $produit,SessionInterface $sessionInterface)
     {
         $panier = $sessionInterface->get("panier", []);
         $id = $produit->getId();
+        unset($panier[$id]);
 
-        if(!empty($panier[$id])){
-            unset($panier[$id]);
-        }
-
+        $sessionInterface->set("panier", $panier);
+    
         return $this->redirectToRoute("app_panier_index");
     }
 

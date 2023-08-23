@@ -1,21 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
-    <h1 class="title-green">Votre panier</h1>
-    <div class="table">
+    <h1 class="title-green text-center mb-5">Votre panier</h1>
+    <table class="table w-75 m-auto">
         <thead>
             <tr>
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
                 <th>Prix total</th>
-                <th>Actions</th>
+                <th class="text-end">Actions</th>
             </tr>
         </thead>
-            
         <tbody>
+            {% for element in dataPanier %}
+                {% set price = element.produit.prix %}
+                {% if element.produit.discount is not null %}
+                {% set price = element.produit.prix-(element.produit.prix*element.produit.discount/100) %}
+                {% endif %}
+                {% set total = price*element.quantite %}
+                <tr>
+                    <td><a href="{{ path('app_front_produit', {slug: element.produit.slug}) }}">{{ element.produit.nom }}</a></td>
+                    <td>{{ element.quantite}}</td>
+                    <td class="text-end">{{ price|format_currency('EUR') }}</td>
+                    <td class="text-end">{{ total|format_currency('EUR') }}</td>
+                    <td class="text-end">
+                        <a href="{{ path('app_panier_add', {id: element.produit.id}) }}" class="btn btn-success"><i class="fa-solid fa-plus"></i></a>
+                        <a href="{{ path('app_panier_remove', {id: element.produit.id}) }}" class="btn btn-warning"><i class="fa-solid fa-minus"></i></a>
+                        <a href="{{ path('app_panier_delete', {id: element.produit.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Votre panier est vide!</td>
+                </tr>
+            {% endfor %}
         </tbody>
-    </div>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-end">Total: {{ total|format_currency('EUR')}}</td>
+                <td class="text-end"><a href="{{ path('app_panier_delete_panier') }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        </tfoot>
+    </table>
+    {# {{dump()}} #}
 {% endblock %}

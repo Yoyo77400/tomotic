@@ -40,7 +40,7 @@
                         <p class="mx-2 fw-bold h3">{{ produit.prix|format_currency('EUR') }}</p>
                     {% endif %}
                 </div>
-                <a href="#" class="btn btn-green-tomotic">Ajouter au panier</a>
+                <a href="{{ path('app_panier_add', {id: produit.id}) }}" class="btn btn-green-tomotic">Ajouter au panier</a>
             </div>
         </div>
     </div>

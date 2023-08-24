@@ -16,7 +16,7 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('isDefault', CheckboxType::class, ["required"=>true, "label"=>"Adresse par défault", "attr"=>["class"=>"form-check-input"], "row_attr"=>["class"=>"form-switch"]])
+            ->add('isDefault', CheckboxType::class, ["required"=>false, "label"=>"Adresse par défault", "attr"=>["class"=>"form-check-input"], "row_attr"=>["class"=>"form-switch"]])
             ->add('nom', TextType::class, ['required'=> true])
             ->add('rue', TextType::class, ['required'=> true])
             ->add('complement', TextType::class, ['required'=> false])

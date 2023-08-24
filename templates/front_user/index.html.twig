@@ -48,9 +48,23 @@
 				{# Adresses #}
 				<div class="tab-pane fade" id="v-pills-adresse" role="tabpanel" aria-labelledby="v-pills-adresse-tab" tabindex="0">
 					<h2 class="title-green mb-3">Voir mes adresses</h2>
-					<p class="fw-bold">Mon adresse par défaut</p>
-
-					<p class="fw-bold">Mes adresses de livraisons</p>
+					<div class="my-2">
+						<p class="fw-bold mb-3">Mon adresse par défaut</p>
+						{% for adresse in app.user.adresses %}
+							{% if adresse.isDefault == true %}
+								<p>Nom de l'adresse: {{ adresse.nom }}</p>
+								<p>Rue: {{ adresse.rue }}</p>
+								<p>Complément d'adresse: {{ adresse.complement }}</p>
+								<p>Ville: {{ adresse.ville }}</p>
+								<p>Code Postal: {{ adresse.codePostal }}</p>
+								<p>Pays: {{ adresse.pays|country_name }}</p>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div>
+						<p class="fw-bold">Mes adresses de livraisons</p>
+					</div>
+					
 				</div>
 				{# Modifier mes informations #}
 				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
@@ -92,7 +106,7 @@
 					<div class="bg-form-image p-3 my-3 item-form-container">
 						<div class="my-2 d-flex form-switch px-3">
 							{{ form_label(form.vars.form.children['isDefault']) }}
-							{{ form_widget(form.vars.form.children['isDefault']) }}
+							{{ form_widget(form.vars.form.children['isDefault'], {"attr": {'class': 'option'}}) }}
 						</div>
 						<div class="my-2">
 							{{ form_label(form.vars.form.children['nom']) }}
@@ -131,7 +145,7 @@
 						{# on affiche les formulaires d'images pour les images déjà ajoutées au livre #}
 						{% for adresse in form.adresses %}
 							{# {{ dump(image.vars["data"].imageName) }} #}
-							<li>{{ macros.renderAdresseForm(adresse, adresse.vars["data"].nom) }}</li>
+							<li class="border-bottom border-success">{{ macros.renderAdresseForm(adresse, adresse.vars["data"].nom) }}</li>
 						{% endfor %}
 					</ul>
 					<button class="add_item_link btn btn-success mb-3 ms-2" data-collection-holder-class="item">Ajouter une adresse</button>
@@ -145,5 +159,25 @@
 	</div>
 {% endblock %}
 {% block javascripts %}
-	<script src="{{ asset('js/add-item-link.js')}}"></script>
+	<script src="{{ asset('js/add-item-link-front.js')}}"></script>
+	<script>
+		let checkboxDefault = document.querySelectorAll('.option');
+		let checkboxChecked = 0;
+		checkboxDefault.forEach(function(el){
+				if(el.checked){
+					checkboxChecked++
+				}
+				el.addEventListener('change', (e)=>{
+					if(el.checked){
+						checkboxChecked++
+					}else{
+						checkboxChecked--
+					}
+					if(checkboxChecked > 1){
+						el.checked = false
+						checkboxChecked = 1;
+					}
+				})
+			})
+	</script>
 {% endblock %}

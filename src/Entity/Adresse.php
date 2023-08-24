@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AdresseRepository::class)]
 class Adresse
 {
+
+    // ====================================================== //
+    // ====================== PROPRIETE ===================== //
+    // ====================================================== //
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,9 +40,24 @@ class Adresse
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'adresses')]
     private Collection $users;
 
+    #[ORM\Column]
+    private ?bool $isDefault = null;
+
+    // ====================================================== //
+    // ====================== Constructeur ================== //
+    // ====================================================== //
     public function __construct()
     {
         $this->users = new ArrayCollection();
+    }
+
+    // ====================================================== //
+    // ====================== METHODES ====================== //
+    // ====================================================== //
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
     public function getId(): ?int
@@ -92,8 +111,9 @@ class Adresse
         $this->ville = $ville;
 
         return $this;
-    }
-
+    }// ====================================================== //
+// ====================================================== //
+// ====================================================== //
     public function getCodePostal(): ?int
     {
         return $this->codePostal;
@@ -138,6 +158,18 @@ class Adresse
     public function removeUser(User $user): static
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function isIsDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    public function setIsDefault(bool $isDefault): static
+    {
+        $this->isDefault = $isDefault;
 
         return $this;
     }

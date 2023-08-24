@@ -41,7 +41,7 @@ class SousCategorie
     #[ORM\Column]
     private ?bool $isActive = null;
 
-    #[ORM\OneToMany(mappedBy: 'sousCategorie', targetEntity: Produit::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'sousCategorie', targetEntity: Produit::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $produits;
 
     #[ORM\ManyToOne(inversedBy: 'sousCategories')]

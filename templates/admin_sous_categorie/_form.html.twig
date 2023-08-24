@@ -9,7 +9,6 @@
 	<div class="d-flex flex-wrap bg-form-image p-3 my-3 align-items-center item-form-container position-relative">
 		<div
 			class="col-12">
-			{# {{ form_label(form.vars.form.children["isActive"]) }} #}
 			<div class="d-flex align-items-center justify-content-between mt-3">
 				<div>
 					{{ form_row(form.vars.form.children["isActive"]) }}
@@ -34,8 +33,7 @@
 {% endmacro %}
 
 {% import _self as macros %}
-<ul
-	class="item list-unstyled" data-index="{{ form.produits|length > 0 ? form.produits|last.vars.name + 1 : 0 }}" data-prototype="{{ macros.renderProduitForm(form.produits.vars.prototype)|e('html_attr') }}">
+<ul class="item list-unstyled" data-index="{{ form.produits|length > 0 ? form.produits|last.vars.name + 1 : 0 }}" data-prototype="{{ macros.renderProduitForm(form.produits.vars.prototype)|e('html_attr') }}">
 	{# on affiche les formulaires d'images pour les images déjà ajoutées au livre #}
 	{% for produit in form.produits %}
 		{# {{ dump(image.vars["data"].imageName) }} #}

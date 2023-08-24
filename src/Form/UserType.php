@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,25 +36,17 @@ class UserType extends AbstractType
                 'required'=>false,
                 'first_options'=> [
                     "label"=>"Mot de passe", 
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter a password',
-                        ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                            // max length allowed by Symfony for security reasons
-                            'max' => 4096,
-                        ]),
-                    ],
+                    "required"=>false,
                 ],
-                'second_options'=>["label"=>"Confirmer le mot de passe!"],
+                'second_options'=>["label"=>"Confirmer le mot de passe!", "required"=>false],
             ])
             ->add('nom', TextType::class, ['required'=>false])
             ->add('prenom', TextType::class, ['required'=>false])
             ->add('telephone', TextType::class, ['required'=>false])
             ->add('dateDeNaissance', BirthdayType::class, ['required'=>false])
             ->add('modifier', SubmitType::class, ["attr"=>['class'=>"btn btn-green-tomotic mt-3 ms-2"]])
+            ->add('modifierAdresse', SubmitType::class, ["attr"=>['class'=>"btn btn-green-tomotic mt-3 ms-2"], "label"=>"Modifier"])
+            ->add('adresses', CollectionType::class, ['entry_type'=>AdresseType::class, "entry_options"=>['fromUser'=>true], "allow_add"=>true, "allow_delete"=>true, "label"=>false, "by_reference"=>false])
         ;
     }
 

@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+// ====================================================== //
+// ========================PROPRIETE===================== //
+// ====================================================== //
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -47,13 +50,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\ManyToMany(targetEntity: Adresse::class, mappedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Adresse::class, mappedBy: 'users', cascade: ['persist', 'remove'])]
     private Collection $adresses;
+
+// ====================================================== //
+// ==================== CONSTRUCTEUR ==================== //
+// ====================================================== //
 
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
     }
+
+    public function __toString()
+    {
+        return $this->email;
+    }
+
+// ====================================================== //
+// ====================== METHODES ====================== //
+// ====================================================== //
 
     public function getId(): ?int
     {

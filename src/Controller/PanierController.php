@@ -15,27 +15,26 @@ class PanierController extends AbstractController
     public function index(SessionInterface $sessionInterface, ProduitRepository $produitRepository): Response
     {
         $panier = $sessionInterface->get("panier", []);
-        $dataPanier = []; 
+        $dataPanier = [];
         $total = 0;
 
         foreach($panier as $id => $quantite){
             $produit = $produitRepository->find($id);
-            $prix = null;
+            $prix = $produit->getPrix();
             if($produit->getDiscount()){
-                $prix = $produit->getPrix();
-            }else{
                 $prix = $produit->getPrix()-($produit->getPrix()*$produit->getDiscount()/100);
             }
             $dataPanier[] = [
                 "produit" => $produit,
-                "quantite" => $quantite
+                "quantite" => $quantite,
+                "prix" => $prix
             ];
-            $total = $total + $prix*$quantite;
+            $total += $prix * $quantite;
         }
 
         return $this->render('panier/index.html.twig', [
             'dataPanier' => $dataPanier,
-            "total" => $total
+            "total" => $total,
         ]);
     }
 

@@ -7,78 +7,143 @@
 	<div class="d-flex align-items-start ms-3">
 		<div class="nav flex-column nav-pills me-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			<a class="nav-link active" id="v-pills-show-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-show-info" type="button" role="tab" aria-controls="v-pills-show-info" aria-selected="true" href="#">Mes informations</a>
+			<a class="nav-link" id="v-pills-adresse-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adresse" type="button" role="tab" aria-controls="v-pills-adresse" aria-selected="false">Mes adresses</a>
 			<a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Modifier mes informations</a>
+			<a class="nav-link" id="v-pills-adresse-edit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adresse-edit" type="button" role="tab" aria-controls="v-pills-adresse-edit" aria-selected="false">Modifier mes adresses</a>
 		</div>
-		<div
-			class="tab-content ms-5" id="v-pills-tabContent">
-			{# Mes information détails #}
-			<div class="tab-pane fade show active" id="v-pills-show-info" role="tabpanel" aria-labelledby="v-pills-show-info-tab" tabindex="0">
-				<h2 class="title-green">Mes informations personnelles</h2>
-				<p class="fw-semibold">Adresse Email:
-					{{ app.user.email }}</p>
-				{% if app.user.nom is not null %}
-					<p class="fw-semibold">Nom :
-						{{ app.user.nom }}</p>
-				{% else %}
-					<p class="fw-semibold">Nom : Non renseigné</p>
-				{% endif %}
-				{% if app.user.prenom is not null %}
-					<p class="fw-semibold">Prénom :
-						{{ app.user.prenom }}</p>
-				{% else %}
-					<p class="fw-semibold">Prénom : Non renseigné</p>
-				{% endif %}
-				{% if app.user.dateDeNaissance is not null %}
-					<p class="fw-semibold">Date de naissance :
-						{{ app.user.dateDeNaissance }}</p>
-				{% else %}
-					<p class="fw-semibold">Date de naissance : Non renseignée</p>
-				{% endif %}
-				{% if app.user.telephone is not null %}
-					<p class="fw-semibold">Téléphone :
-						{{ app.user.telephone }}</p>
-				{% else %}
-					<p class="fw-semibold">Téléphone : Non renseigné</p>
-				{% endif %}
-			</div>
-			{# Modifier mes informations #}
-			<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-				{{ form_start(form)}}
-				<div class="d-flex flex-wrap w-75">
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.nom) }}
-						{{ form_widget(form.nom) }}
+		<div class="w-75">
+			{{ form_start(form)}}
+			<div
+				class="tab-content ms-5 w-75" id="v-pills-tabContent">
+				{# Mes information détails #}
+				<div class="tab-pane fade show active" id="v-pills-show-info" role="tabpanel" aria-labelledby="v-pills-show-info-tab" tabindex="0">
+					<h2 class="title-green">Mes informations personnelles</h2>
+					<p class="fw-semibold">Adresse Email:
+						{{ app.user.email }}</p>
+					{% if app.user.nom is not null %}
+						<p class="fw-semibold">Nom :
+							{{ app.user.nom }}</p>
+					{% else %}
+						<p class="fw-semibold">Nom : Non renseigné</p>
+					{% endif %}
+					{% if app.user.prenom is not null %}
+						<p class="fw-semibold">Prénom :
+							{{ app.user.prenom }}</p>
+					{% else %}
+						<p class="fw-semibold">Prénom : Non renseigné</p>
+					{% endif %}
+					{% if app.user.dateDeNaissance is not null %}
+						<p class="fw-semibold">Date de naissance :
+							{{ app.user.dateDeNaissance }}</p>
+					{% else %}
+						<p class="fw-semibold">Date de naissance : Non renseignée</p>
+					{% endif %}
+					{% if app.user.telephone is not null %}
+						<p class="fw-semibold">Téléphone :
+							{{ app.user.telephone }}</p>
+					{% else %}
+						<p class="fw-semibold">Téléphone : Non renseigné</p>
+					{% endif %}
+				</div>
+				{# Adresses #}
+				<div class="tab-pane fade" id="v-pills-adresse" role="tabpanel" aria-labelledby="v-pills-adresse-tab" tabindex="0">
+					<h2 class="title-green mb-3">Voir mes adresses</h2>
+					<p class="fw-bold">Mon adresse par défaut</p>
+
+					<p class="fw-bold">Mes adresses de livraisons</p>
+				</div>
+				{# Modifier mes informations #}
+				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+					<div class="d-flex flex-wrap">
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.nom) }}
+							{{ form_widget(form.nom) }}
+						</div>
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.prenom) }}
+							{{ form_widget(form.prenom) }}
+						</div>
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.email, "Votre Email", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.email) }}
+						</div>
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.telephone) }}
+							{{ form_widget(form.telephone) }}
+						</div>
+						<div class='w-75 px-2 my-2'>
+							{{ form_label(form.dateDeNaissance, "", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.dateDeNaissance) }}
+						</div>
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.plainPassword.first, "", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.plainPassword.first) }}
+						</div>
+						<div class='w-50 px-2 my-2'>
+							{{ form_label(form.plainPassword.second, "", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.plainPassword.second) }}
+						</div>
 					</div>
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.prenom) }}
-						{{ form_widget(form.prenom) }}
-					</div>
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.email, "Votre Email", {'label_attr': {'class': 'w-100'}}) }}
-						{{ form_widget(form.email) }}
-					</div>
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.telephone) }}
-						{{ form_widget(form.telephone) }}
-					</div>
-					<div class='w-75 px-2 my-2'>
-						{{ form_label(form.dateDeNaissance, "", {'label_attr': {'class': 'w-100'}}) }}
-						{{ form_widget(form.dateDeNaissance) }}
-					</div>
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.plainPassword.first, "", {'label_attr': {'class': 'w-100'}}) }}
-						{{ form_widget(form.plainPassword.first) }}
-					</div>
-					<div class='w-50 px-2 my-2'>
-						{{ form_label(form.plainPassword.second, "", {'label_attr': {'class': 'w-100'}}) }}
-						{{ form_widget(form.plainPassword.second) }}
+					<div class="w-50">
+						{{ form_widget(form.modifier) }}
 					</div>
 				</div>
-				<div class="w-50">
-					{{ form_widget(form.modifier) }}
+				{% macro renderAdresseForm(form, nom = null) %}
+					<div class="bg-form-image p-3 my-3 item-form-container">
+						<div class="my-2 d-flex form-switch px-3">
+							{{ form_label(form.vars.form.children['isDefault']) }}
+							{{ form_widget(form.vars.form.children['isDefault']) }}
+						</div>
+						<div class="my-2">
+							{{ form_label(form.vars.form.children['nom']) }}
+							{{ form_widget(form.vars.form.children['nom']) }}
+						</div>
+
+						<div class="my-2">
+							{{ form_label(form.vars.form.children['rue'], "", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.vars.form.children['rue']) }}
+						</div>
+						<div class="my-2">
+							{{ form_label(form.vars.form.children['complement'], "", {'label_attr': {'class': 'w-100'}}) }}
+							{{ form_widget(form.vars.form.children['complement']) }}
+						</div>
+						<div class="d-flex justify-content-between">
+							<div class="my-2">
+								{{ form_label(form.vars.form.children['ville'], "", {'label_attr': {'class': 'w-100'}}) }}
+								{{ form_widget(form.vars.form.children['ville']) }}
+							</div>
+							<div class="my-2">
+								{{ form_label(form.vars.form.children['codePostal'], "", {'label_attr': {'class': 'w-100'}}) }}
+								{{ form_widget(form.vars.form.children['codePostal']) }}
+							</div>
+							<div class="my-2">
+								{{ form_label(form.vars.form.children['pays'], "", {'label_attr': {'class': 'w-100'}}) }}
+								{{ form_widget(form.vars.form.children['pays']) }}
+							</div>
+						</div>
+					</div>
+				{% endmacro %}
+				{# Modification des adresses #}
+				<div class="tab-pane fade" id="v-pills-adresse-edit" role="tabpanel" aria-labelledby="v-pills-adresse-edit-tab" tabindex="0">
+					{% import _self as macros %}
+					<ul
+						class="item list-unstyled" data-index="{{ form.adresses|length > 0 ? form.adresses|last.vars.name + 1 : 0 }}" data-prototype="{{ macros.renderAdresseForm(form.adresses.vars.prototype)|e('html_attr') }}">
+						{# on affiche les formulaires d'images pour les images déjà ajoutées au livre #}
+						{% for adresse in form.adresses %}
+							{# {{ dump(image.vars["data"].imageName) }} #}
+							<li>{{ macros.renderAdresseForm(adresse, adresse.vars["data"].nom) }}</li>
+						{% endfor %}
+					</ul>
+					<button class="add_item_link btn btn-success mb-3 ms-2" data-collection-holder-class="item">Ajouter une adresse</button>
+					<div class="w-50">
+						{{ form_widget(form.modifierAdresse) }}
+					</div>
 				</div>
-				{{ form_end(form)}}
 			</div>
+			{{ form_end(form)}}
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('js/add-item-link.js')}}"></script>
 {% endblock %}

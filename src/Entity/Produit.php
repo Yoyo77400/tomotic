@@ -45,9 +45,17 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $images;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Article::class)]
+    private Collection $articles;
+
+    // ====================================================== //
+    // ==================== CONSTRUCTEUR ==================== //
+    // ====================================================== //
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     // ====================================================== //
@@ -171,6 +179,36 @@ class Produit
             // set the owning side to null (unless already changed)
             if ($image->getProduit() === $this) {
                 $image->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): static
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): static
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getProduit() === $this) {
+                $article->setProduit(null);
             }
         }
 

@@ -43,12 +43,16 @@ class Adresse
     #[ORM\Column]
     private ?bool $isDefault = null;
 
+    #[ORM\OneToMany(mappedBy: 'adresse', targetEntity: Commande::class)]
+    private Collection $commandes;
+
     // ====================================================== //
     // ====================== Constructeur ================== //
     // ====================================================== //
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     // ====================================================== //
@@ -170,6 +174,36 @@ class Adresse
     public function setIsDefault(bool $isDefault): static
     {
         $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): static
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setAdresse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): static
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getAdresse() === $this) {
+                $commande->setAdresse(null);
+            }
+        }
 
         return $this;
     }

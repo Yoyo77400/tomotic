@@ -40,6 +40,9 @@
                 <td colspan="3" class="text-end">{{ total|format_currency('EUR')}}</td>
                 <td class="text-end"><a href="{{ path('app_panier_delete_panier') }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
+            {% if dataPanier != [] %}
+            <tr><td colspan="5"><a href="{{ path('app_front_commande_index') }}" class="btn btn-success">Valder mon panier</a></td></tr>
+            {% endif %}
         </tfoot>
     </table>
 {% endblock %}

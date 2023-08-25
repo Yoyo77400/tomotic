@@ -24,6 +24,7 @@ class AdresseType extends AbstractType
             ->add('codePostal', NumberType::class, ['required'=> true])
             ->add('pays', CountryType::class, ['required'=>true])
             ->remove('users')
+            ->remove('commande')
         ;
     }
 

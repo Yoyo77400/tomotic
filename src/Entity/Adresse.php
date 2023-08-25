@@ -61,7 +61,18 @@ class Adresse
 
     public function __toString()
     {
-        return $this->nom;
+        if($this->complement){
+            return $this->nom .'[-br]'. 
+                $this->rue .'[-br]'.
+                $this->complement .'[-br]'.
+                $this->codePostal .' - '. $this->ville .'[-br]'.
+                $this->pays;
+        }else{
+            return $this->nom .'[-br]'. 
+                $this->rue .'[-br]'.
+                $this->codePostal .' - '. $this->ville .'[-br]'.
+                $this->pays;
+        }
     }
 
     public function getId(): ?int

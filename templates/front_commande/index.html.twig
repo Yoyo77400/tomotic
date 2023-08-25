@@ -1,13 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontCommandeController!{% endblock %}
+{% block title %}Passez votre commande
+{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        <div class="d-flex">
-            {{ form_widget(form.adresse, {"attr": {'class': 'mb-3'}})|replace({ '[-br]' : '</br>'})|raw }}
-            {{ form_label(form.adresse)|replace({ '[-br]' : '</br>'})|raw }}
-        </div>
-        <button type="submit" class="btn btn-green-tomotic">Valider la commande</button>
+	{{ form_start(form) }}
+	<h1 class="title-green text-center mb-4">Passez votre commande</h1>
+	<div class="row justify-content-around">
+		<div class="col-12 col-md-6">
+            <p class="fw-semibold">Résumé des articles de votre commande</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Produit</th>
+						<th>Quantité</th>
+						<th>Prix unitaire</th>
+						<th>Prix total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for element in articles %}
+						{% set totalPrice = element.prixFixe*element.quantite %}
+						<tr>
+							<td>
+								<a href="{{ path('app_front_produit', {slug: element.produit.slug}) }}">{{ element.produit.nom }}</a>
+							</td>
+							<td>{{ element.quantite}}</td>
+							<td class="text-end">{{ element.prixFixe|format_currency('EUR') }}</td>
+							<td class="text-end">{{ totalPrice|format_currency('EUR') }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="fw-bold">Total:</td>
+						<td colspan="3" class="text-end">{{ total|format_currency('EUR')}}</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="col-12 col-md-3">
+			<p class="fw-semibold">Séléctionné une adresse de livraison:</p>
+			{{ form_widget(form.adresse, {"attr": {'class': 'mb-3'}})|replace({ '[-br]' : '</br>'})|raw }}
+	    </div>
+    </div>
+    <div class="w-100 text-center mt-2">
+	    <button type="submit" class="btn btn-success">Valider la commande</button>
+    </div>
     {{ form_end(form) }}
 {% endblock %}

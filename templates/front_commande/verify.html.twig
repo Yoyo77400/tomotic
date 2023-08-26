@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récapitulatif de votre commande
+{% endblock %}
+
+{% block body %}
+	<h1 class="title-green text-center mb-3">Récapitulatif de votre commande:</h1>
+	<div>
+		<p class="fw-bold text-center">Détail de l'expédition:</p>
+		<div class="d-flex justify-content-center pb-3 border-bottom">
+			<div class="card">
+				<div class="card-body mx-2">
+					<h5 class="card-title">Adresse</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{ commande.adresse.nom() }}</h6>
+					<p class="card-text">Rue:{{ commande.adresse.rue() }}</p>
+					{% if commande.adresse.complement() is not null %}
+						<p class="card-text">Complement:
+							{{ commande.adresse.complement() }}</p>
+					{% endif %}
+					<p class="card-text">Code Postal:
+						{{ commande.adresse.codePostal }}</p>
+					<p class="card-text">Ville:
+						{{ commande.adresse.ville }}</p>
+					<p class="card-text">Pays:
+						{{ commande.adresse.pays|country_name }}</p>
+				</div>
+			</div>
+			<div class="card mx-2">
+				<div class="card-body">
+					<h5 class="card-title">Acheteur</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{ commande.user.email }}</h6>
+					{% if commande.user.nom is not null %}
+						<p class="card-text">Nom:
+							{{ commande.user.nom }}</p>
+					{% endif %}
+					{% if commande.user.prenom is not null %}
+						<p class="card-text">Prénom:
+							{{ commande.user.prenom }}</p>
+					{% endif %}
+					{% if commande.user.telephone is not null %}
+						<p class="card-text">Téléphone:
+							{{ commande.user.telephone }}</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<table class="table w-75 m-auto">
+            <p class='fw-bold text-center mt-3'>Detail des produits de la commande</p>
+			<thead>
+				<tr>
+					<th>Nom du produit</th>
+					<th>Quantité</th>
+					<th>Prix</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for article in commande.articles %}
+					{% set totalArticle = article.prixFixe * article.quantite %}
+					<tr>
+						<td>{{ article.produit.nom }}</td>
+						<td class="text-center">{{ article.quantite }}</td>
+						<td class="text-center">{{ article.prixFixe|format_currency('EUR') }}</td>
+						<td class="text-end">{{ totalArticle|format_currency('EUR') }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td class="fw-bold">Total:</td>
+					<td colspan="3" class="text-end fw-bold">{{ commande.prixTotal|format_currency('EUR') }}</td>
+				</tr>
+			</tfoot>
+		</table>
+        <form class="text-center mt-3" method="POST" action="{{ path('payment_stripe', {reference: commande.reference}) }}">
+            <button type="submit" class="btn btn-green-tomotic">Valider et Payer</button>
+        </form>
+	</div>
+{% endblock %}

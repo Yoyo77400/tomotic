@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
 {
+// ====================================================== //
+// ===================== PROPRIETES ===================== //
+// ====================================================== //
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -33,11 +36,21 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?bool $isPaid = null;
+
+// ====================================================== //
+// ==================== CONSTRUCTEUR ==================== //
+// ====================================================== //
     public function __construct()
     {
         $this->articles = new ArrayCollection();
     }
 
+
+// ====================================================== //
+// ================= GETTERS ET SETTERS ================= //
+// ====================================================== //
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +142,18 @@ class Commande
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): static
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }

@@ -10,6 +10,7 @@
 			<a class="nav-link" id="v-pills-adresse-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adresse" type="button" role="tab" aria-controls="v-pills-adresse" aria-selected="false">Mes adresses</a>
 			<a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Modifier mes informations</a>
 			<a class="nav-link" id="v-pills-adresse-edit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adresse-edit" type="button" role="tab" aria-controls="v-pills-adresse-edit" aria-selected="false">Modifier mes adresses</a>
+			<a class="nav-link" id="v-pills-commande-tab" data-bs-toggle="pill" data-bs-target="#v-pills-commande" type="button" role="tab" aria-controls="v-pills-commande" aria-selected="false">Voir mes commandes</a>
 		</div>
 		<div class="w-75">
 			{{ form_start(form)}}
@@ -64,7 +65,30 @@
 					<div>
 						<p class="fw-bold">Mes adresses de livraisons</p>
 					</div>
-					
+				</div>
+				{# Commandes #}
+				<div class="tab-pane fade" id="v-pills-commande" role="tabpanel" aria-labelledby="v-pills-commande-tab" tabindex="0">
+					<h2 class="title-green mb-3">Voir mes commandes</h2>
+					<table class="table my-2">
+						<thead>
+							<tr>
+								<th>Référence</th>
+								<th>Date</th>
+								<th>Prix Total</th>
+								<th>PDF</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for commande in commandes %}
+								<tr>
+									<td>{{ commande.reference }}</td>
+									<td>{{ commande.createdAt|date("d/m/Y", "Europe/Paris") }}</td>
+									<td>{{ commande.prixTotal|format_currency('EUR') }}</td>
+									<td><a href="#"></a><i class="fa-solid fa-file-pdf fa-2xl" style="color: #a01313;"></i></a></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				</div>
 				{# Modifier mes informations #}
 				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">

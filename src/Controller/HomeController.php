@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CarouselRepository;
 use App\Repository\ContactContentRepository;
+use App\Repository\ContenuRepository;
 use App\Repository\FooterContentRepository;
 use App\Repository\HomeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,13 +34,28 @@ class HomeController extends AbstractController
         return $this->render('front_common/_render_logo.html.twig', ['logo'=>$logo]);
     }
 
-    #[Route('/', name: 'app_home')]
-    public function index(HomeRepository $homeRepository, CarouselRepository $carouselRepository): Response
+    public function renderContenuHome(ContenuRepository $contenuRepository): Response
     {
+        $aPropos = $contenuRepository->findBy(['isActive'=>true, 'tag'=>"a-propos-de-nous"]);
+        $solutionsHome = $contenuRepository->findBy(['isActive'=>true, 'tag'=>"solutions-du-site"]);
+
+        return $this->render('front_common/_contenu_home.html.twig', [
+            'aPropos' => $aPropos,
+            'solutionsHome' => $solutionsHome
+        ]);
+    }
+
+    #[Route('/', name: 'app_home')]
+    public function index(HomeRepository $homeRepository, CarouselRepository $carouselRepository, ContenuRepository $contenuRepository): Response
+    {
+        $aPropos = $contenuRepository->findBy(['isActive'=>true, 'tag'=>"a-propos-de-nous"]);
+        $solutionsHome = $contenuRepository->findBy(['isActive'=>true, 'tag'=>"solutions-du-site"]);
         $carousels = $carouselRepository->findBy(["isActive"=>true, "tag"=>"home"],["rankNumber"=>"ASC"]);
         return $this->render('home/index.html.twig', [
             'home' => $homeRepository->findOneBy(['isActive'=>true]),
-            'carousels' => $carousels
+            'carousels' => $carousels,
+            'aPropos' => $aPropos,
+            'solutionsHome' => $solutionsHome
         ]);
     }
 }

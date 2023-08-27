@@ -39,9 +39,7 @@
 
 <ul
 	class="items list-unstyled" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}" data-prototype="{{ macros.renderImageForm(form.images.vars.prototype)|e('html_attr') }}">
-	{# on affiche les formulaires d'images pour les images déjà ajoutées au livre #}
 	{% for image in form.images %}
-		{# {{ dump(image.vars["data"].imageName) }} #}
 		<li>{{ macros.renderImageForm(image, image.vars["data"].imageName) }}</li>
 	{% endfor %}
 </ul>

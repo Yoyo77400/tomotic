@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FrontCommandeController extends AbstractController
@@ -167,9 +166,11 @@ class FrontCommandeController extends AbstractController
     }
 
     #[Route('/commande/error/{reference}', name: 'payment_error')]
-    public function paymentError($reference)
+    public function paymentError($reference, CommandeRepository $commandeRepository, EntityManagerInterface $entityManager)
     {
-        $this->addFlash('error', 'Votre paiement n\'a pas aboutit! Reesayé plus tard');
+        $commande = $commandeRepository->findOneBy(['reference' => $reference]);
+        $entityManager->remove($commande);
+        $this->addFlash('error', 'Votre paiement n\'a pas aboutit! Merci de réessayer de passer votre commande plus tard');
         return $this->redirectToRoute('app_panier_index');
     }
 }

@@ -5,11 +5,11 @@
         -La liste des réseau sociaux
     Ces deux dernières seront affiché via les logos d'entreprises, redimentionné afin d'uniformiser les tailles d'image dans chaque section. 
 #}
-<footer class='row px-3 align-items-center'>
+<footer class='row mx-0 px-3 py-3 border-top border-success border-opacity-50'>
         <div class="col-12 col-md-4 text-center">
             {{ render(controller('App\\Controller\\HomeController::renderContact')) }}
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 text-center">
             {{ render(controller('App\\Controller\\HomeController::renderPartenaires')) }}
         </div>
         <div class="col-12 col-md-4 text-center">

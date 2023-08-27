@@ -6,9 +6,10 @@ use App\Entity\SousCategorie;
 use App\DataFixtures\CategorieFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class SousCategorieFixtures extends Fixture implements DependentFixtureInterface
+class SousCategorieFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     // ====================================================== //
     // ===================== PROPRIETES ===================== //
@@ -67,5 +68,10 @@ class SousCategorieFixtures extends Fixture implements DependentFixtureInterface
         return [
             CategorieFixtures::class,
         ];
+    }
+
+    public static function getGroups(): array
+    {
+        return ['produits'];
     }
 }

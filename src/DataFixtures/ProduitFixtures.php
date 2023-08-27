@@ -6,15 +6,17 @@ use App\Entity\Produit;
 use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\SousCategorieFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ProduitFixtures extends Fixture implements DependentFixtureInterface
+class ProduitFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     // ====================================================== //
     // ===================== PROPRIETES ===================== //
     // ====================================================== //
     public const GOOGLE_HOME_BLANCHE = "google-home-blanche";
     public const SONOS_MOVE = "sonos-move";
+    public const AMAZON_ECHO = "amazon-echo";
     public const SAMSUNG_GALAXY_S23_ULTRA = "samsung-galaxy-s23-ultra";
     public const IPHONE_14_PRO_MAX = "iphone-14-pro-max";
     public const PRISE_CONNECTEE_EVE_ENERGY = "prise-connectee-eve-energy";
@@ -46,6 +48,17 @@ class ProduitFixtures extends Fixture implements DependentFixtureInterface
         $produit->setSousCategorie($this->getReference(SousCategorieFixtures::ENCEINTES_CONNECTEES));
         $manager->persist($produit);
         $this->addReference(self::SONOS_MOVE, $produit);
+
+        $produit = new Produit();
+        $produit->setNom('Amazon ECHO 4 Anthracite');
+        $produit->setSlug('amazon-echo-4-anthracite');
+        $produit->setPrix(119.00);
+        $produit->setDiscount(25);
+        $produit->setDescription('');
+        $produit->setIsActive(true);
+        $produit->setSousCategorie($this->getReference(SousCategorieFixtures::ENCEINTES_CONNECTEES));
+        $manager->persist($produit);
+        $this->addReference(self::AMAZON_ECHO, $produit);
 
         $produit = new Produit();
         $produit->setNom('Samsung Galaxy S23 Ultra');
@@ -125,5 +138,10 @@ class ProduitFixtures extends Fixture implements DependentFixtureInterface
         return [
             SousCategorieFixtures::class,
         ];
+    }
+
+    public static function getGroups(): array
+    {
+        return ['produits'];
     }
 }

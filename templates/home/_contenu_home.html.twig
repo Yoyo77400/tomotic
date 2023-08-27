@@ -1,0 +1,28 @@
+{% if aPropos|length > 0 %}
+	<section class="py-2 px-2 border-bottom border-success border-opacity-50">
+		<h1 class="title-green mb-2 text-center">{{ aPropos[0].titre }}</h1>
+		<div class="row justify-content-center align-items-center">
+			{% if aPropos[0].images|length > 0 %}
+				<img class="img-home col-12 col-md-2" src="{{ asset('images/images/' ~ aPropos[0].images[0].imageName ) }}" alt="">
+			{% endif %}
+			<p class="fw-semibold text-center col-12 col-md-8">{{ aPropos[0].contenu }}</p>
+			{% if aPropos[0].images|length > 1 %}
+				<img class="img-home col-12 col-md-2" src="{{ asset('images/images/' ~ aPropos[0].images[1].imageName ) }}" alt="">
+			{% endif %}
+		</div>
+	</section>
+{% endif %}
+{% if solutionsHome|length > 0 %}
+	<section class="py-2 px-2">
+		<h1 class="title-green mb-2 text-center">Découvrez les services proposés par notre site</h1>
+		<div class="row justify-content-center mx-0 py-2 px-2">
+            {% for solution in solutionsHome %}
+                <div class="col-12 col-md-6 col-xl-3 text-center">
+                    <a href="#"><img class="img-home-solution" src="{{ asset('images/images/' ~ solution.images[0].imageName ) }}" alt=""></a>
+                    <h4 class="text-green">{{ solution.titre }}</h4>
+                    <p class="px-4 text-green fw-semibold">{{ solution.contenu }}</p>
+                </div>
+            {% endfor %}
+        </div>
+	</section>
+{% endif %}

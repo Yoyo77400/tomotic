@@ -5,8 +5,9 @@ namespace App\DataFixtures;
 use App\Entity\Categorie;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class CategorieFixtures extends Fixture
+class CategorieFixtures extends Fixture implements FixtureGroupInterface
 {
     // ====================================================== //
     // ===================== PROPRIETES ===================== //
@@ -38,5 +39,10 @@ class CategorieFixtures extends Fixture
         $this->addReference(self::DOMOTIQUE, $categorie);
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['produits'];
     }
 }

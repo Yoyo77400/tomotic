@@ -27,7 +27,7 @@ class Commande
     #[ORM\Column]
     private ?float $prixTotal = null;
 
-    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Article::class)]
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Article::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $articles;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]

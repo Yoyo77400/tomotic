@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Repository\AdresseRepository;
+use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,13 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontUserController extends AbstractController
 {
     #[Route('/user', name: 'app_front_user')]
-    public function index(Request $request, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface, AdresseRepository $adresseRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface, CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
-        // $comparaison = new Comparison('isDefault', '=', 'true');
-        // $critere = new Criteria();
-        // $critere->where($comparaison);
-        // dd($user->getAdresses()->matching($critere));
+        $commandes = $commandeRepository->findBy(['user'=>$user, 'isPaid'=>true]);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -40,6 +38,7 @@ class FrontUserController extends AbstractController
 
         return $this->render('front_user/index.html.twig', [
             'form' => $form->createView(),
+            'commandes' => $commandes
         ]);
     }
 }

@@ -53,7 +53,7 @@ class AdminContenuController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_contenu_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contenu $contenu, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ContenuType::class, $contenu);
+        $form = $this->createForm(ContenuType::class, $contenu, ['isNew'=>false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

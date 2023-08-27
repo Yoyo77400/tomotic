@@ -35,6 +35,9 @@ class Contenu
     #[ORM\OneToMany(mappedBy: 'contenu', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     // ====================================================== //
     // ==================== CONSTRUCTEUR ==================== //
     // ====================================================== //
@@ -126,6 +129,18 @@ class Contenu
                 $image->setContenu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -2,17 +2,16 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Form\UserType;
-use App\Repository\AdresseRepository;
 use App\Repository\CommandeRepository;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 class FrontUserController extends AbstractController
@@ -40,5 +39,25 @@ class FrontUserController extends AbstractController
             'form' => $form->createView(),
             'commandes' => $commandes
         ]);
+    }
+
+    #[Route('/generate/pdf/{id}', name: 'app_front_user_generate_pdf')]
+    public function generatePDF($id, CommandeRepository $commandeRepository)
+    {
+        $commande = $commandeRepository->find($id);
+        
+        $html = $this->render('front_user/_pdf_commande.html.twig', [
+            'commande' => $commande
+        ]);
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($options);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+        ob_get_clean();
+        $fichier = $commande->getReference().'-'.$commande->getUser()->getEmail();
+        $dompdf->stream($fichier);
+        
     }
 }

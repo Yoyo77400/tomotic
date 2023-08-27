@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="d-flex align-items-start ms-3">
+	<div class="d-flex align-items-start ms-3 py-2">
 		<div class="nav flex-column nav-pills me-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			<a class="nav-link active" id="v-pills-show-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-show-info" type="button" role="tab" aria-controls="v-pills-show-info" aria-selected="true" href="#">Mes informations</a>
 			<a class="nav-link" id="v-pills-adresse-tab" data-bs-toggle="pill" data-bs-target="#v-pills-adresse" type="button" role="tab" aria-controls="v-pills-adresse" aria-selected="false">Mes adresses</a>
@@ -49,21 +49,39 @@
 				{# Adresses #}
 				<div class="tab-pane fade" id="v-pills-adresse" role="tabpanel" aria-labelledby="v-pills-adresse-tab" tabindex="0">
 					<h2 class="title-green mb-3">Voir mes adresses</h2>
-					<div class="my-2">
-						<p class="fw-bold mb-3">Mon adresse par défaut</p>
-						{% for adresse in app.user.adresses %}
-							{% if adresse.isDefault == true %}
-								<p>Nom de l'adresse: {{ adresse.nom }}</p>
-								<p>Rue: {{ adresse.rue }}</p>
-								<p>Complément d'adresse: {{ adresse.complement }}</p>
-								<p>Ville: {{ adresse.ville }}</p>
-								<p>Code Postal: {{ adresse.codePostal }}</p>
-								<p>Pays: {{ adresse.pays|country_name }}</p>
-							{% endif %}
-						{% endfor %}
-					</div>
 					<div>
+						<p class="fw-bold">Mon adresse par défaut</p>
+						<div class="d-flex flex-wrap">
+							{% for adresse in app.user.adresses %}
+								{% if adresse.isDefault == true %}
+									<div class=" card p-2">
+										<p><span class="fw-semibold">Nom de l'adresse: </span>{{ adresse.nom }}</p>
+										<p><span class="fw-semibold">Rue: </span>{{ adresse.rue }}</span></p>
+										<p><span class="fw-semibold">Complément d'adresse: </span>{{ adresse.complement }}</p>
+										<p><span class="fw-semibold">Ville: </span>{{ adresse.ville }}</span></p>
+										<p><span class="fw-semibold">Code Postal: </span>{{ adresse.codePostal }}</p>
+										<p><span class="fw-semibold">Pays: </span>{{ adresse.pays|country_name }}</p>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="my-2">
 						<p class="fw-bold">Mes adresses de livraisons</p>
+						<div class="d-flex flex-wrap">
+							{% for adresse in app.user.adresses %}
+								{% if adresse.isDefault == false %}
+									<div class="card p-2">
+										<p><span class="fw-semibold">Nom de l'adresse: </span>{{ adresse.nom }}</p>
+										<p><span class="fw-semibold">Rue: </span>{{ adresse.rue }}</p>
+										<p><span class="fw-semibold">Complément d'adresse: </span>{{ adresse.complement }}</p>
+										<p><span class="fw-semibold">Ville: </span>{{ adresse.ville }}</p>
+										<p><span class="fw-semibold">Code Postal: </span>{{ adresse.codePostal }}</p>
+										<p><span class="fw-semibold">Pays: </span>{{ adresse.pays|country_name }}</p>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
 					</div>
 				</div>
 				{# Commandes #}
@@ -84,7 +102,7 @@
 									<td>{{ commande.reference }}</td>
 									<td>{{ commande.createdAt|date("d/m/Y", "Europe/Paris") }}</td>
 									<td>{{ commande.prixTotal|format_currency('EUR') }}</td>
-									<td><a href="#"></a><i class="fa-solid fa-file-pdf fa-2xl" style="color: #a01313;"></i></a></td>
+									<td><a href="{{ path('app_front_user_generate_pdf', {id: commande.id}) }}"><i class="fa-solid fa-file-pdf fa-2xl" style="color: #a01313;"></i></a></td>
 								</tr>
 							{% endfor %}
 						</tbody>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ commande.reference ~ '-' ~ commande.user.email }}</title>
+    <style>
+        header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            min-height: 250px;
+            border-bottom: 1px solid black;
+            padding: 8px;
+        }
+        main{
+            width: 100%;
+            padding: 12px;
+        }
+        table{
+            width: 100%
+        }
+        tr{
+            border-bottom: 1px solid grey;
+        }
+        h3{
+            text-align: center;
+        }
+        .bolder{
+            font-weight: bolder;
+        }
+        .margin-bottom{
+            margin-bottom: 8px;
+        }
+        .text-underline{
+            text-decoration: underline;
+        }
+        .card{
+            border: 1px solid black;
+            width: 25%;
+        }
+        .padding{
+            padding: 8px;
+        }
+        .text-end{
+            text-align: end;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <th class="card padding">
+            <p class="bolder margin-bottom text-underline">Détail de l'utilisateur</p>
+            {% if commande.user.nom is not null %}
+                <p>Nom: {{ commande.user.nom }}</p>
+            {% endif %}
+            {% if commande.user.prenom is not null %}
+                <p>Prenom: {{ commande.user.prenom }}</p>
+            {% endif %}
+            {% if commande.user.telephone is not null %}
+                <p>Telephone: {{ commande.user.nom }}</p>
+            {% endif %}
+            <p>Email: {{commande.user.email }}</p>
+        </th>
+        <th>{{ commande.reference ~ '-' ~ commande.user.email }}</th>
+        <th class="card padding">
+            <p class="bolder margin-bottom text-underline">Adresse d'expédition</p>
+            <p>Nom de l'adresse: {{ commande.adresse.nom }}</p>
+            <p>Rue: {{ commande.adresse.rue }}</p>
+            <p>Ville: {{ commande.adresse.ville }}</p>
+            <p>Code Postal: {{ commande.adresse.codePostal }}</p>
+            <p>Pays: {{ commande.adresse.pays|country_name }}</p>
+        </th>
+    </table>
+    <main>
+        <h3>Récapitulatif de vos achats</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th class="text-end">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in commande.articles %}
+                {% set total = article.prixFixe * article.quantite %}
+                    <tr>
+                        <td>{{ article.produit.nom }}</td>
+                        <td>{{ article.prixFixe|format_currency('euro') }}</td>
+                        <td>{{ article.quantite }}</td>
+                        <td class="text-end">{{ total|format_currency('euro') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="bolder">Total</td>
+                    <td colspan="3" class="text-end">{{ commande.prixTotal|format_currency('euro') }}
+                </tr>
+            </tfoot>
+        </table>
+    </main>
+</body>
+</html>

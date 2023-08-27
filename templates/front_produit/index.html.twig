@@ -3,26 +3,10 @@
 {% block title %}{{ produit.nom }}{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-around">
-        <div class="col-12 col-lg-2 text-center">
-            {% if produit.images|length > 0 %}
-                <a href="{{ asset('images/images/' ~ produit.images[0].imageName) }}" data-lightbox="{{ produit.nom }}">
-                    <img src="{{ asset('images/images/' ~ produit.images[0].imageName) }}" alt="{{ produit.nom }}" class="img-fluid" id="img-big">
-                </a>
-                {% if produit.images|length > 1 %}
-                    <div class="row justify-content-between">
-                        {% for image in produit.images %}
-                            {% if loop.index0 > 0  %}
-                                <div class="img-min mt-3 cursor-pointer">
-                                    <img src="{{ asset('images/images/' ~ produit.images[loop.index0].imageName) }}" alt="" class="img-fluid">
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-        <div class="col-12 col-lg-8 text-justify">
+    <div class="row m-0">
+        {% include 'front_produit/_produit_carousel_md_size.html.twig' %}
+        {% include 'front_produit/_produit_image_desktop.html.twig' %}
+        <div class="col-12 col-md-8 text-justify">
             <div class="mx-auto w-75">
                 <h2 class="title-green">{{ produit.nom }}</h2>
                 {% if produit.description is not null %}

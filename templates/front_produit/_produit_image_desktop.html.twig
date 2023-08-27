@@ -1,0 +1,18 @@
+<div class="col-md-3 d-none d-md-block ms-auto">
+	{% if produit.images|length > 0 %}
+		<a href="{{ asset('images/images/' ~ produit.images[0].imageName) }}" data-lightbox="{{ produit.nom }}">
+			<img src="{{ asset('images/images/' ~ produit.images[0].imageName) }}" alt="{{ produit.nom }}" class="img-fluid" id="img-big">
+		</a>
+		{% if produit.images|length > 1 %}
+			<div class="row justify-content-between">
+				{% for image in produit.images %}
+					{% if loop.index0 > 0  %}
+						<div class="img-min mt-3 cursor-pointer">
+							<img src="{{ asset('images/images/' ~ produit.images[loop.index0].imageName) }}" alt="" class="img-fluid">
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% endif %}
+</div>

@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use App\Entity\Article;
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\AdresseRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class FrontCommandeController extends AbstractController
 {
     #[Route('/commande/create', name: 'app_front_commande_index')]
-    public function index(SessionInterface $session, ProduitRepository $produitRepository): Response
+    public function index(SessionInterface $session, ProduitRepository $produitRepository, AdresseRepository $adresseRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -31,7 +32,19 @@ class FrontCommandeController extends AbstractController
         $articles = [];
         $total = 0;
         $user = $this->getUser();
-        $form = $this->createForm(CommandeType::class, null, ['user' => $user]);
+        $adresses = $adresseRepository->findByUser($user->getEmail());
+        $defaultAdresse = $adresseRepository->findOneByUser(true, $user->getEmail());
+        $id = 0;
+        foreach ($adresses as $key => $adresse){
+            if($adresse === $defaultAdresse){
+                $id = $key;
+            }
+        }
+        $group = [
+            'adresses' => $adresses,
+            'keyDefaultAdresse' => $id
+        ];
+        $form = $this->createForm(CommandeType::class, null, ['group' => $group]);
 
         foreach ($panier as $id => $quantite) {
             $produit = $produitRepository->find($id);
@@ -50,20 +63,21 @@ class FrontCommandeController extends AbstractController
         return $this->render('front_commande/index.html.twig', [
             'form' => $form->createView(),
             'articles' => $articles,
-            'total' => $total
+            'total' => $total,
+            'user' => $user
         ]);
     }
 
     #[Route('/commande/verify', name: 'app_front_commande_verify')]
     public function verify(SessionInterface $session, ProduitRepository $produitRepository, Request $request, EntityManagerInterface $entityManagerInterface): Response
     {
+        
         $panier = $session->get('panier');
         $total = 0;
-
         $user = $this->getUser();
         $dateTime = new DateTimeImmutable('now');
         $reference = $dateTime->format('dmY') . '-' . uniqid();
-        $form = $this->createForm(CommandeType::class, null, ['user' => $user]);
+        $form = $this->createForm(CommandeType::class, null, );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -109,10 +123,10 @@ class FrontCommandeController extends AbstractController
             'user' => $user,
         ]);
     }
-    #[Route('/commande/create-session-stripe/{reference}', name: 'payment_stripe')]
-    public function paymentStripe(EntityManagerInterface $entityManager, CommandeRepository $commandeRepository, $reference, UrlGeneratorInterface $urlGenerator): RedirectResponse
+    #[Route('/commande/create-session-stripe/{id}', name: 'payment_stripe')]
+    public function paymentStripe(CommandeRepository $commandeRepository, $id, UrlGeneratorInterface $urlGenerator): RedirectResponse
     {
-        $commande = $commandeRepository->findOneBy(['reference' => $reference]);
+        $commande = $commandeRepository->find($id);
 
         if(!$commande){
             return $this->redirectToRoute("app_panier_index");

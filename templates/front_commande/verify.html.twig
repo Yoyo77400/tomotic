@@ -72,7 +72,7 @@
 				</tr>
 			</tfoot>
 		</table>
-        <form class="text-center mt-3" method="POST" action="{{ path('payment_stripe', {reference: commande.reference}) }}">
+        <form class="text-center mt-3" method="POST" action="{{ path('payment_stripe', {id: commande.id}) }}">
             <button type="submit" class="btn btn-green-tomotic">Valider et Payer</button>
         </form>
 	</div>

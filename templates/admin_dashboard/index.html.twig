@@ -2,4 +2,9 @@
 
 {% block title %}TOMOTIC Administration{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+<h2 class="title-green">Produits les plus populaire</h2>
+{% for produit in produits|sort((a, b)=> b.articles|length <=> a.articles|length) %}
+{{ dump(produit)}}
+{% endfor %}
+{% endblock %}

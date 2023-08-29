@@ -13,7 +13,7 @@ class CommandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $user = $options['user'];
+        $group = $options['group'];
         $builder
             ->add('adresse', EntityType::class, [
                 'class'=>Adresse::class,
@@ -21,8 +21,12 @@ class CommandeType extends AbstractType
                 'required'=>true,
                 'multiple'=> false,
                 'expanded'=>true,
-                'choices' => $user->getAdresses(),
-                'label_attr' => ['class'=> 'border-bottom mb-3']
+                'choices' => count($group) > 0 ? $group['adresses'] : null,
+                'label_attr' => ['class'=> 'border-bottom mb-3'],
+                'attr'=> ['class' => 'test'],
+                'choice_attr' => count($group) > 0 ? [ 
+                    $group['keyDefaultAdresse'] => ['checked' => true]
+                ] : [],
             ])
         ;
     }
@@ -30,7 +34,7 @@ class CommandeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'user' => [],
+            'group' => [],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use App\Repository\SousCategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +24,12 @@ class FrontCategorieController extends AbstractController
     }
 
     #[Route('/categorie/{slug}', name: 'app_front_categorie')]
-    public function index($slug, CategorieRepository $categorieRepository): Response
+    public function index($slug, CategorieRepository $categorieRepository, ProduitRepository $produitRepository): Response
     {
         if($slug == "categories"){
             return $this->render('front_categorie/index.html.twig', [
                 'categories' => $categorieRepository->findBy(['isActive'=>true], ["nom"=>'ASC']),
+                'produits' => $produitRepository->findAll(),
             ]);
         }else{
             $categorie = $categorieRepository->findOneBy(['slug'=>$slug]);

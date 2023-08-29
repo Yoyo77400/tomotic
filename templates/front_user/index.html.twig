@@ -203,23 +203,14 @@
 {% block javascripts %}
 	<script src="{{ asset('js/add-item-link-front.js')}}"></script>
 	<script>
-		let checkboxDefault = document.querySelectorAll('.option');
-		let checkboxChecked = 0;
-		checkboxDefault.forEach(function(el){
-				if(el.checked){
-					checkboxChecked++
+		$(document).on("change", ".option", function(e){
+			console.log(e.currentTarget)
+				document.querySelectorAll('.option').forEach((el)=>{
+				
+				if(e.currentTarget != el){
+					$(el).prop('checked', false)
 				}
-				el.addEventListener('change', (e)=>{
-					if(el.checked){
-						checkboxChecked++
-					}else{
-						checkboxChecked--
-					}
-					if(checkboxChecked > 1){
-						el.checked = false
-						checkboxChecked = 1;
-					}
-				})
 			})
+		})
 	</script>
 {% endblock %}

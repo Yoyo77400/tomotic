@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 class FrontUserController extends AbstractController
 {
@@ -20,19 +20,33 @@ class FrontUserController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface, CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
-        $commandes = $commandeRepository->findBy(['user'=>$user, 'isPaid'=>true]);
+        $commandes = $commandeRepository->findBy(['user' => $user, 'isPaid' => true]);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            if(!is_null($request->request->get('plainpassword'))){
-                $user->setPassword($userPasswordHasherInterface->hashPassword($user, $request->request->get('plainpassword')));
-                $entityManagerInterface->persist($user);
-            }
-        $entityManagerInterface->flush();
-        $this->addFlash('success', 'Votre profil à bien été mis à jour.');
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        return $this->redirectToRoute('app_front_user');
+            $adresses = $request->request->get("user")["adresses"];
+            $defaultAdresse = [];
+            foreach ($adresses as $key => $adresse) {
+                if (array_key_exists('isDefault', $adresse)) {
+                        $defaultAdresse[] = $adresse;
+                    }
+                }
+                if (count($defaultAdresse) > 1) {
+                    $this->addFlash('danger', "vous ne devez séléctionner qu'une adresse par défaut!");
+                    return $this->redirectToRoute('app_front_user');
+                }
+
+                if (!is_null($request->request->get('plainpassword'))) {
+                    $user->setPassword($userPasswordHasherInterface->hashPassword($user, $request->request->get('plainpassword')));
+                    $entityManagerInterface->persist($user);
+                }
+                $entityManagerInterface->flush();
+                $this->addFlash('success', 'Votre profil à bien été mis à jour.');
+
+                return $this->redirectToRoute('app_front_user');
+                
         }
 
         return $this->render('front_user/index.html.twig', [
@@ -45,7 +59,7 @@ class FrontUserController extends AbstractController
     public function generatePDF($id, CommandeRepository $commandeRepository)
     {
         $commande = $commandeRepository->find($id);
-        
+
         $html = $this->render('front_user/_pdf_commande.html.twig', [
             'commande' => $commande
         ]);
@@ -56,8 +70,7 @@ class FrontUserController extends AbstractController
         $dompdf->loadHtml($html);
         $dompdf->render();
         ob_get_clean();
-        $fichier = $commande->getReference().'-'.$commande->getUser()->getEmail();
+        $fichier = $commande->getReference() . '-' . $commande->getUser()->getEmail();
         $dompdf->stream($fichier);
-        
     }
 }

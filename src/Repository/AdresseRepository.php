@@ -21,28 +21,30 @@ class AdresseRepository extends ServiceEntityRepository
         parent::__construct($registry, Adresse::class);
     }
 
-//    /**
-//     * @return Adresse[] Returns an array of Adresse objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Adresse[] Returns an array of Adresse objects
+    //     */
+    public function findByUser($email): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a', 'u')
+            ->leftJoin('a.users', 'u')
+            ->andWhere('u.email = :val')
+            ->setParameter('val', $email)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Adresse
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneByUser($isDefault, $email): ?Adresse
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a', 'u')
+            ->leftJoin('a.users', 'u')
+            ->andWhere('a.isDefault = :val')
+            ->andWhere('u.email LIKE :val2')
+            ->setParameter('val', $isDefault)
+            ->setParameter('val2', '%' . $email . '%')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

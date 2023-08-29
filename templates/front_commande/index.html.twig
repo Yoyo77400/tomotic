@@ -5,6 +5,7 @@
 
 {% block body %}
 	{{ form_start(form, {action:path('app_front_commande_verify')}) }}
+	
 	<h1 class="title-green text-center mb-4">Passez votre commande</h1>
 	<div class="row justify-content-around">
 		<div class="col-12 col-md-6">
@@ -40,8 +41,8 @@
 			</table>
 		</div>
 		<div class="col-12 col-md-3">
-			<p class="fw-semibold">Séléctionné une adresse de livraison:</p>
-			{{ form_widget(form.adresse, {"attr": {'class': 'mb-3'}})|replace({ '[-br]' : '</br>'})|raw }}
+			<p class="fw-semibold">Séléctionnez une adresse de livraison:</p>
+			{{ form_row(form.adresse)|replace({ '[-br]' : '</br>'})|raw }}
 	    </div>
     </div>
     <div class="w-100 text-center mt-2">
@@ -49,4 +50,11 @@
 	    <button type="submit" class="btn btn-success">Valider la commande</button>
     </div>
     {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).on("change", ".form-check-input", function(e){
+			console.log(e.currentTarget.checked)
+		})
+	</script>
 {% endblock %}

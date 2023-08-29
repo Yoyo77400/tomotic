@@ -90,9 +90,9 @@
                 {% set total = article.prixFixe * article.quantite %}
                     <tr>
                         <td>{{ article.produit.nom }}</td>
-                        <td>{{ article.prixFixe|format_currency('euro') }}</td>
+                        <td>{{ article.prixFixe }}€</td>
                         <td>{{ article.quantite }}</td>
-                        <td class="text-end">{{ total|format_currency('euro') }}</td>
+                        <td class="text-end">{{ total }}€</td>
                     </tr>
                 {% endfor %}
             </tbody>

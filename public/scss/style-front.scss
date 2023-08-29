@@ -24,6 +24,15 @@ body{
         font-weight: 500;
     }
 
+    .page-link{
+        color: $color;
+    }
+    .active>.page-link{
+        color: white;
+        background-color: #186903;
+        border: none;
+    }
+
     header{
         min-height: 150px
     }

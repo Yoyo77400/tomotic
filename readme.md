@@ -44,7 +44,7 @@
 -Formatage du formulaire UserType.
 -Ajout de l'accès à la gestion des utilisateurs dans la left nav du dashboard
 
-### A prévoir ###
+## MAJ du 29/08/23 ##
 
 -Réalisation de la page produit.
 -Mise en place de la page toutes les catégories.
@@ -53,5 +53,16 @@
 -Création de fixtures et des rôles utilisateurs.
 -Sécurisation des données utilisateurs.
 -Gestion des entités panier, articles, et commande pour la réalisation du tunnel d'achat.
--Création des entités liées aux solutions sur mesures.
+-Payment stripe mis en place.
+-Gestion d'une séléction d'adresse par défaut lors du passage de la commande.
+-Mise en place de la page user.
+-Gestion des adresses user par defaut en front et back pour bloquer à une adresse par défaut maximum.
+-Gestion de la vue vénérale des catégories qui affiche la pages principale de produits, avec meilleures ventes et promotions.
+-Intégration du bundle domPDF pour la génération des pdf récapitulatifs des commandes.
+
+## A realiser ##
+
+-Création de l'entitée liée aux solutions sur mesures.
+-Création de l'entité de services rattachés aux solutions proposées. Notion de tag pour les services mis en place dans le mcd pour pouvoir procéder à un tri. Seule le service d'estimation sera lié aux rendez-vous.
+-Création d'une entitée correspondant aux experts entreprises, donc aux employés, pouvant avoir des rendez-vous avec les utilisateurs.
 -Documentation fullcalendar pour la mise en place des rendez-vous.

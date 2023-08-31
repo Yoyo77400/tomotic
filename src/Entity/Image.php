@@ -41,6 +41,9 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Produit $produit = null;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Solution $solution = null;
+
 
     // ====================================================== //
     // ================= GETTERS ET SETTERS ================= //
@@ -143,6 +146,18 @@ class Image
     public function setProduit(?Produit $produit): static
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getSolution(): ?Solution
+    {
+        return $this->solution;
+    }
+
+    public function setSolution(?Solution $solution): static
+    {
+        $this->solution = $solution;
 
         return $this;
     }

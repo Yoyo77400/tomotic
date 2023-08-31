@@ -47,6 +47,10 @@ class Commande
         $this->articles = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->reference.' - '.$this->user->getEmail();
+    }
 
 // ====================================================== //
 // ================= GETTERS ET SETTERS ================= //

@@ -10,6 +10,11 @@
 {% set produitActive = "" %}
 {% set sousCategorieActive = "" %}
 {% set userActive = "" %}
+{% set commandeActive = "" %}
+{% set articleActive = "" %}
+{% set adresseActive = "" %}
+{% set solutionActive = "" %}
+
 {# On vérifie si un mot est contenu dans la route (barre d'adresse) et si c'est le cas on modifie la valeur de la variable concernée #}
 {% if "dashboard" in app.request.pathinfo %}
 	{% set dashboardActive = "active" %}
@@ -35,6 +40,14 @@
 	{% set produitActive = "active" %}
 {% elseif "user" in app.request.pathinfo %}
 	{% set userActive = "active" %}
+{% elseif "commande" in app.request.pathinfo %}
+	{% set commandeActive = "active" %}
+{% elseif "article" in app.request.pathinfo %}
+	{% set articleActive = "active" %}
+{% elseif "adresse" in app.request.pathinfo %}
+	{% set adresseActive = "active" %}
+{% elseif "solution" in app.request.pathinfo %}
+	{% set solutionActive = "active" %}
 {% else %}
 	{% set dashboardActive = "active" %}
 {% endif %}

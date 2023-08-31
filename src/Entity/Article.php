@@ -27,6 +27,12 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Commande $commande = null;
+    
+
+    public function __toString()
+    {
+        return $this->produit->getNom();
+    }
 
     // ====================================================== //
     // ================= GETTERS ET SETTERS ================= //

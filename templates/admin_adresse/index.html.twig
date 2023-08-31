@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base-backend.html.twig' %}
 {% block title %}Adresse index{% endblock %}
 
 {% block body %}
-    <h1>Adresse index</h1>
-
-    <table class="table">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Liste des adresses</h1>
+        <a href="{{ path('app_admin_adresse_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table table-index table-striped table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
@@ -15,7 +16,7 @@
                 <th>Ville</th>
                 <th>CodePostal</th>
                 <th>Pays</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,17 +30,16 @@
                 <td>{{ adresse.codePostal }}</td>
                 <td>{{ adresse.pays }}</td>
                 <td>
-                    <a href="{{ path('app_admin_adresse_show', {'id': adresse.id}) }}">show</a>
-                    <a href="{{ path('app_admin_adresse_edit', {'id': adresse.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_adresse_show', {'id': adresse.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_adresse_edit', {'id': adresse.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_adresse/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas d'entrée en bbase de données.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_admin_adresse_new') }}">Create new</a>
 {% endblock %}

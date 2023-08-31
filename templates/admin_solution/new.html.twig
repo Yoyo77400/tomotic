@@ -1,0 +1,8 @@
+{% extends 'base-backend.html.twig' %}
+{% block title %}Nouvelle Solution{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_solution_index') }}" class="btn btn-dark btn-sm mb-2">Retour à la liste</a>
+    <h1>Créer une nouvelle Solution</h1>
+    {{ include('admin_solution/_form.html.twig') }}
+{% endblock %}

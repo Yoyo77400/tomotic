@@ -26,7 +26,7 @@
 				</a>
 			</li>
 			<li class="sidebar-header">
-				Pages
+				Pages et contenus de page
 			</li>
 			<li class="sidebar-item {{ homeActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_home_index') }}">
@@ -44,22 +44,19 @@
 					</span>
 				</a>
 			</li>
-			<li class="sidebar-header">
-				Composants
-			</li>
-			<li class="sidebar-item {{ userActive }}">
-				<a class="sidebar-link" href="{{ path('app_admin_user_index') }}">
-					<i class="align-middle" data-feather="user"></i>
-					<span class="align-middle">
-						Utilisateurs
-					</span>
-				</a>
-			</li>
 			<li class="sidebar-item {{ contactActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_contact_content_index') }}">
 					<i class="align-middle" data-feather="info"></i>
 					<span class="align-middle">
 						Informations de contact
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ footerActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_footer_content_index') }}">
+					<i class="align-middle" data-feather="twitter"></i>
+					<span class="align-middle">
+						Réseaux et Partenaires
 					</span>
 				</a>
 			</li>
@@ -70,6 +67,44 @@
 						Carousels
 					</span>
 				</a>
+			</li>
+			<li class="sidebar-header">
+				Gestion Utilisateur et Commande
+			</li>
+			<li class="sidebar-item {{ userActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_user_index') }}">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">
+						Utilisateurs
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ adresseActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_adresse_index') }}">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">
+						Adresses
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ commandeActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_commande_index') }}">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">
+						Commandes
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ articleActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_article_index') }}">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">
+						Articles
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-header">
+				Composants E-commerce
 			</li>
 			<li class="sidebar-item {{ imageActive }}">
 				<a class="sidebar-link" href="{{ path('app_admin_image_index') }}">
@@ -100,14 +135,6 @@
 					<i class="align-middle" data-feather="package"></i>
 					<span class="align-middle">
 						Catégories
-					</span>
-				</a>
-			</li>
-			<li class="sidebar-item {{ footerActive }}">
-				<a class="sidebar-link" href="{{ path('app_admin_footer_content_index') }}">
-					<i class="align-middle" data-feather="twitter"></i>
-					<span class="align-middle">
-						Réseaux et Partenaires
 					</span>
 				</a>
 			</li>

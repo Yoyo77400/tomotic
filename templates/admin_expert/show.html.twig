@@ -1,0 +1,35 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Expert{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_expert_index') }}" class="btn btn-dark btn-sm">Retour à la liste</a>
+    <h1>Expert</h1>
+    {{ include('admin_expert/_delete_form.html.twig') }}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ expert.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ expert.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ expert.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ expert.mail }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ expert.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_expert_edit', {'id': expert.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+{% endblock %}

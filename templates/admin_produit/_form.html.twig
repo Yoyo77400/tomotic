@@ -13,8 +13,8 @@
 		<div class="col-12 col-md-2">
 			{# On affichera l'image #}
 			{# On vérifie si l'imagename n'est pas nul #}
-				{% if imageName is not null %}
-					<a href="{{ asset('images/images/' ~ imageName) }}" data-lightbox="{{ imageName }}" class="d-block me-3"> <img src="{{ asset('images/images/' ~ imageName) }}" class="img-fluid img-form-livre">
+			{% if imageName is not null %}
+				<a href="{{ asset('images/images/' ~ imageName) }}" data-lightbox="{{ imageName }}" class="d-block me-3"> <img src="{{ asset('images/images/' ~ imageName) }}" class="img-fluid img-form-livre">
 				</a>
 			{% endif %}
 		</div>

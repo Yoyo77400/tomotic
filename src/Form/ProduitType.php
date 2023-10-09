@@ -22,16 +22,42 @@ class ProduitType extends AbstractType
     {
         $builder
             ->remove('slug')
-            ->add('isActive', CheckboxType::class, ["required"=>false, "label"=>"Active", "attr"=>["class"=>"form-check-input"], "row_attr"=>["class"=>"form-switch"]])
+            ->add('isActive', CheckboxType::class, [
+                "required"=>false, 
+                "label"=>"Active", 
+                "attr"=>[
+                    "class"=>"form-check-input"
+                ], 
+                "row_attr"=>[
+                    "class"=>"form-switch"
+                    ]
+                ])
             ->add('nom', TextType::class, ["required"=>true])
-            ->add('description', CKEditorType::class, ["required"=>false, 'config_name' => 'my_config', "input_sync"=>true])
+            ->add('description', CKEditorType::class, [
+                "required"=>false, 
+                'config_name' => 'my_config', 
+                "input_sync"=>true
+                ])
             ->add('prix', MoneyType::class, ["required"=>true])
             ->add('discount', NumberType::class, ["required"=>false])
-            ->add("images", CollectionType::class, ["entry_type"=>ImageType::class, "entry_options"=>['fromProduit'=>true, 'isNew'=>$options['isNew']], "allow_add"=>true, "allow_delete"=>true, "label"=>false, "by_reference"=>false])
+            ->add("images", CollectionType::class, [
+                "entry_type"=>ImageType::class, 
+                "entry_options"=>[
+                    'fromProduit'=>true, 
+                    'isNew'=>$options['isNew']
+                ], 
+                "allow_add"=>true, 
+                "allow_delete"=>true, 
+                "label"=>false, 
+                "by_reference"=>false])
         ;
         if(!$options['fromSousCategorie']){
             $builder
-                ->add('sousCategorie', EntityType::class, ["class"=>SousCategorie::class, "choice_label"=>"nom", "required"=>true])
+                ->add('sousCategorie', EntityType::class, [
+                    "class"=>SousCategorie::class, 
+                    "choice_label"=>"nom", 
+                    "required"=>true
+                    ])
                 ;
         }else{
             $builder

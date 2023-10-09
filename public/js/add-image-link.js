@@ -38,7 +38,7 @@ const addFormToCollection = (e) => {
 };
 
 document
-    .querySelectorAll('ul.images .img-form-container')
+    .querySelectorAll('ul.items .img-form-container')
     .forEach((item) => {
         addItemFormDeleteLink(item)
     })

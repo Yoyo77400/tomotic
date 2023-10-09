@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SolutionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SolutionRepository::class)]
@@ -27,11 +28,20 @@ class Solution
     #[ORM\OneToMany(mappedBy: 'solution', targetEntity: Image::class)]
     private Collection $images;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $contenu = null;
+
+// ====================================================== //
+// ==================== CONSTRUCTEUR ==================== //
+// ====================================================== //
     public function __construct()
     {
         $this->images = new ArrayCollection();
     }
 
+// ====================================================== //
+// ================= GETTERS ET SETTERS ================= //
+// ====================================================== //
     public function getId(): ?int
     {
         return $this->id;
@@ -99,6 +109,18 @@ class Solution
                 $image->setSolution(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(?string $contenu): static
+    {
+        $this->contenu = $contenu;
 
         return $this;
     }

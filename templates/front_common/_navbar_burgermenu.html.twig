@@ -1,0 +1,49 @@
+<div class="d-xl-none">
+	<li class="nav-item text-end">
+		<a href="{{ path('app_home') }}">Accueil</a>
+	</li>
+	<li class="nav-item text-end">
+		<a href="#">Solutions pour particuliers</a>
+	</li>
+	<li class="nav-item text-end">
+		<a href="#">Solutions pour professionnels</a>
+	</li>
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle text-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos produits</a>
+		{{ render(controller('App\\Controller\\FrontCategorieController::renderCategorieDropdown'))}}
+	</li>
+	<li class="nav-item text-end">
+		<a href="{{ path('app_panier_index') }}">
+			<i class="fa-solid fa-cart-shopping fa-xl"></i>
+		</a>
+	</li>
+	{% if app.user is null %}
+		<li class='text-end'>
+			<div class="my-2 nav-item">
+				<a href="{{ path('app_login')}}">Connexion</a>
+			</div>
+			<div class="my-2 nav-item">
+				<a href="{{ path('app_register') }}">Inscription</a>
+			</div>
+		</li>
+	{% else %}
+		<li class="nav-item dropstart">
+			<a class="nav-link text-end" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<i class="fa fa-user-circle fa-2xl"></i>
+			</a>
+			<ul class="dropdown-menu ms-auto mt-4">
+				<li>
+					<a href="{{ path('app_front_user') }}" class="dropdown-item text-end">Mon compte</a>
+				</li>
+				{% if is_granted("ROLE_ADMIN") %}
+					<li>
+						<a href="{{ path('app_admin_dashboard') }}" class="dropdown-item text-end" target="_blank">Panneau d'administration</a>
+					</li>
+				{% endif %}
+				<li>
+					<a href="{{ path('app_logout') }}" class="dropdown-item text-end">Déconnexion</a>
+				</li>
+			</ul>
+		</li>
+	{% endif %}
+</div>

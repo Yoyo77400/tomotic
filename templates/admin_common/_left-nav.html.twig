@@ -138,6 +138,33 @@
 					</span>
 				</a>
 			</li>
+			<li class="sidebar-header">
+				Gestion Rendez-vous et Solutions sur mesure
+			</li>
+			<li class="sidebar-item {{ solutionActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_solution_index') }}">
+					<i class="align-middle" data-feather="package"></i>
+					<span class="align-middle">
+						Solutions
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ serviceActive }}">
+				<a class="sidebar-link" href="{{ path('app_admin_service_index') }}">
+					<i class="align-middle" data-feather="package"></i>
+					<span class="align-middle">
+						Services
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {{ expertActive }} mb-5">
+				<a class="sidebar-link" href="{{ path('app_admin_expert_index') }}">
+					<i class="align-middle" data-feather="package"></i>
+					<span class="align-middle">
+						Experts de l'entreprise
+					</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 </nav>

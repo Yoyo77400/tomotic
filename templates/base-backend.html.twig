@@ -14,6 +14,8 @@
 {% set articleActive = "" %}
 {% set adresseActive = "" %}
 {% set solutionActive = "" %}
+{% set serviceActive = "" %}
+{% set expertActive = "" %}
 
 {# On vérifie si un mot est contenu dans la route (barre d'adresse) et si c'est le cas on modifie la valeur de la variable concernée #}
 {% if "dashboard" in app.request.pathinfo %}
@@ -48,6 +50,10 @@
 	{% set adresseActive = "active" %}
 {% elseif "solution" in app.request.pathinfo %}
 	{% set solutionActive = "active" %}
+{% elseif "service" in app.request.pathinfo %}
+	{% set serviceActive = "active" %}
+{% elseif "expert" in app.request.pathinfo %}
+	{% set expertActive = "active" %}
 {% else %}
 	{% set dashboardActive = "active" %}
 {% endif %}

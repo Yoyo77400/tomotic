@@ -1,0 +1,42 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Expert index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Expert index</h1>
+        <a href="{{ path('app_admin_expert_new') }}" class="btn btn-success">Nouveau</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Mail</th>
+                <th>Telephone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for expert in experts %}
+            <tr>
+                <td>{{ expert.id }}</td>
+                <td>{{ expert.nom }}</td>
+                <td>{{ expert.prenom }}</td>
+                <td>{{ expert.mail }}</td>
+                <td>{{ expert.telephone }}</td>
+                <td>
+                    <a href="{{ path('app_admin_expert_show', {'id': expert.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_expert_edit', {'id': expert.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_expert/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas de résultat trouvé en base de données.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

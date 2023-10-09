@@ -1,0 +1,13 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Modifier Expert{% endblock %}
+
+{% block body %}
+    <h1>Edit Expert</h1>
+
+    {{ include('admin_expert/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_expert_index') }}" class="btn btn-dark btn-sm">back to list</a>
+
+    {{ include('admin_expert/_delete_form.html.twig') }}
+{% endblock %}

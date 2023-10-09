@@ -1,0 +1,9 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}New Expert{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_expert_index') }}" class="btn btn-dark btn-sm">Retour à la liste</a>
+    <h1>Créer un nouvel Expert</h1>
+    {{ include('admin_expert/_form.html.twig') }}
+{% endblock %}

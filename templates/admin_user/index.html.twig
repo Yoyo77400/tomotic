@@ -36,9 +36,9 @@
                 {# <td>{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d H:i:s') : '' }}</td> #}
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
-                    {{ include('admin_user/_delete_form.html.twig') }}
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-primary"><i class="align-middle" data-feather="eye"></i></a>
                     <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                    {{ include('admin_user/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

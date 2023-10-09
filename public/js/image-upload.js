@@ -14,9 +14,9 @@ const activateSelectImage = (input) => {
                 // oncréer une variable qui pointe sur le parent (div) dans laquelle on veut mettre l'image
                 let imgContainer = item.parentElement.previousElementSibling;
                 // on vérifie si le parent contient déjà la balise image recherchée
-                if(imgContainer.querySelector('.img-form-livre')){
+                if(imgContainer.querySelector('.img-form-produit')){
                     imgContainer.querySelector('a').setAttribute('href' , reader.result);
-                    imgContainer.querySelector('.img-form-livre').setAttribute('src', reader.result)
+                    imgContainer.querySelector('.img-form-produit').setAttribute('src', reader.result)
                 }else{
                     let link = document.createElement('a');
                     link.classList.add('d-block', 'me-3');
@@ -24,7 +24,7 @@ const activateSelectImage = (input) => {
                     link.setAttribute('data-lightbox', Date.now());
 
                     let img = document.createElement('img');
-                    img.classList.add('img-fluid', 'img-form-livre');
+                    img.classList.add('img-fluid', 'img-form-produit');
                     img.setAttribute('src', reader.result);
 
                     //on Ajoute l'image dans le lien

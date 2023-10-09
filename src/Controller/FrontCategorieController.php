@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontCategorieController extends AbstractController
 {
 
-    public function renderCategorieDropdown(CategorieRepository $categorieRepository, SousCategorieRepository $sousCategorieRepository): Response
+    public function renderCategorieDropdown(CategorieRepository $categorieRepository): Response
     {
         $categories = $categorieRepository->findBy(['isActive'=>true]);
         return $this->render('front_categorie/_categorie_dropdown.html.twig', ['categories'=>$categories]);

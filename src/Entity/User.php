@@ -56,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commande::class)]
     private Collection $commandes;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: RendezVous::class)]
+    private Collection $rendezVous;
+
 // ====================================================== //
 // ==================== CONSTRUCTEUR ==================== //
 // ====================================================== //
@@ -64,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->adresses = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->rendezVous = new ArrayCollection();
     }
 
     public function __toString()
@@ -275,6 +279,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commande->getUser() === $this) {
                 $commande->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RendezVous>
+     */
+    public function getRendezVous(): Collection
+    {
+        return $this->rendezVous;
+    }
+
+    public function addRendezVou(RendezVous $rendezVou): static
+    {
+        if (!$this->rendezVous->contains($rendezVou)) {
+            $this->rendezVous->add($rendezVou);
+            $rendezVou->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezVou(RendezVous $rendezVou): static
+    {
+        if ($this->rendezVous->removeElement($rendezVou)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezVou->getUser() === $this) {
+                $rendezVou->setUser(null);
             }
         }
 

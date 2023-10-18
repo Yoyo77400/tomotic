@@ -19,6 +19,12 @@ class FrontUserController extends AbstractController
     #[Route('/user', name: 'app_front_user')]
     public function index(Request $request, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface, CommandeRepository $commandeRepository): Response
     {
+        if(!$this->getUser())
+        {
+            $this->addFlash('danger', "Vous n'êtes pas autorisé à accédé à cette page. Veuillez d'abbort vous conneter ou vous inscrire");
+            return $this->redirectToRoute('app_home');
+        }
+        
         $user = $this->getUser();
         $commandes = $commandeRepository->findBy(['user' => $user, 'isPaid' => true]);
         $form = $this->createForm(UserType::class, $user);

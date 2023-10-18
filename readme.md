@@ -66,3 +66,6 @@
 -Création de l'entité de services rattachés aux solutions proposées. Notion de tag pour les services mis en place dans le mcd pour pouvoir procéder à un tri. Seule le service d'estimation sera lié aux rendez-vous.
 -Création d'une entitée correspondant aux experts entreprises, donc aux employés, pouvant avoir des rendez-vous avec les utilisateurs.
 -Documentation fullcalendar pour la mise en place des rendez-vous.
+-Réalisation du fil d'ariane.
+-Gestion des pages d'erreurs.
+-Création de l'outil de recherche dans le menu des catégories.

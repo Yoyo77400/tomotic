@@ -55,6 +55,11 @@ class Categorie
         $this->sousCategories = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
 
     // ====================================================== //
     // ================= GETTERS ET SETTERS ================= //

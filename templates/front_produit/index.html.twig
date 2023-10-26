@@ -3,7 +3,8 @@
 {% block title %}{{ produit.nom }}{% endblock %}
 
 {% block body %}
-    <div class="row m-0">
+    <div class="ms-5"><a href="{{ path('app_front_categorie', {slug: produit.sousCategorie.categorie.slug}) }}">{{ produit.sousCategorie.categorie }}</a> --> <a href="{{ path('app_front_sous_categorie', {slug: produit.sousCategorie.slug}) }}">{{ produit.sousCategorie }}</a></div>
+    <div class="row m-0 my-2">
         {% include 'front_produit/_produit_carousel_md_size.html.twig' %}
         {% include 'front_produit/_produit_image_desktop.html.twig' %}
         <div class="col-12 col-md-8 text-justify">

@@ -26,7 +26,7 @@ class FrontUserController extends AbstractController
         }
         
         $user = $this->getUser();
-        $commandes = $commandeRepository->findBy(['user' => $user, 'isPaid' => true]);
+        $commandes = $commandeRepository->findBy(['user' => $user, 'isPaid' => true],['createdAt'=>'DESC']);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

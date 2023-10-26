@@ -19,7 +19,7 @@ class FrontSousCategorieController extends AbstractController
         $produits = $paginator->paginate(
             $produits, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            2, /*limit per page*/
+            15, /*limit per page*/
         );
         return $this->render('front_sous_categorie/index.html.twig', [
             'sousCategorie' => $sousCategorie,
